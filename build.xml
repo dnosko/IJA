@@ -32,7 +32,7 @@
         </javac>
         <jar destfile="dest/ija-app.jar" basedir="build">
             <manifest>
-                <attribute name="Main-Class" value="src.game.Main"/>
+                <attribute name="Main-Class" value="src.Main"/>
             </manifest>
             <fileset dir="lib">
                 <include name="img/**" />

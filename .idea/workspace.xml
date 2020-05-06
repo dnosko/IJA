@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="adc73160-c5b6-4b41-a33b-3a8bfae9d6c8" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1bYFdEbb7py15B67XT9cNXLodDM" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/src/Main" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="main" type="AntRunConfiguration">
+      <antsettings antfile="file://$PROJECT_DIR$/build.xml" target="main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="adc73160-c5b6-4b41-a33b-3a8bfae9d6c8" name="Default Changelist" comment="" />
+      <created>1588801206324</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1588801206324</updated>
+      <workItem from="1588801208676" duration="1946000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="422" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588801399602">
+      <screen x="0" y="27" width="1920" height="988" />
+    </state>
+    <state x="422" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1920.988@0.27.1920.988" timestamp="1588801399602" />
+    <state x="801" y="412" width="308" height="216" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1588801547086">
+      <screen x="0" y="27" width="1920" height="988" />
+    </state>
+    <state x="801" y="412" width="308" height="216" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.27.1920.988@0.27.1920.988" timestamp="1588801547086" />
+    <state x="634" y="150" width="642" height="740" key="#main" timestamp="1588801373130">
+      <screen x="0" y="27" width="1920" height="988" />
+    </state>
+    <state x="634" y="150" width="642" height="740" key="#main/0.27.1920.988@0.27.1920.988" timestamp="1588801373130" />
+    <state x="711" y="429" width="488" height="182" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1588802323255">
+      <screen x="0" y="27" width="1920" height="988" />
+    </state>
+    <state x="711" y="429" width="488" height="182" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.27.1920.988@0.27.1920.988" timestamp="1588802323255" />
+    <state x="743" y="263" width="424" height="513" key="FileChooserDialogImpl" timestamp="1588801281709">
+      <screen x="0" y="27" width="1920" height="988" />
+    </state>
+    <state x="743" y="263" width="424" height="513" key="FileChooserDialogImpl/0.27.1920.988@0.27.1920.988" timestamp="1588801281709" />
+  </component>
+</project>
