@@ -5,7 +5,7 @@ streets:
     x: 17.00
     y: 46.00
   end:
-    x: 298.00
+    x: 100.00
     y: 46.00
   stops:
   -
@@ -188,4 +188,14 @@ streets:
       x: 333.00
       y: 180.00
     stops:
+    -
+  &street22 name: "Street 22"
+    begin:
+      x: 100.00
+      y: 46.00
+    end:
+      x: 298.00
+      y: 46.00
+    stops:
+
 
