@@ -1,14 +1,15 @@
 package gui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
-import javax.xml.soap.Text;
-import java.awt.*;
+
 import java.time.DateTimeException;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -21,8 +22,8 @@ public class ControllerGui {
     private AnchorPane content;
     @FXML
     private TextField setTime, changeTimeSpeed;
-    //@FXML
-    //private TextField changeTimeSpeed;
+    @FXML
+    private TextArea clock;
 
     private List<Drawable> elements = new ArrayList<>();
     private List<TimeUpdate> updates = new ArrayList<>();
@@ -40,14 +41,21 @@ public class ControllerGui {
             setTime.clear();
             setTime.replaceSelection("Invalid time");
         }
+        showTime();
     }
 
     @FXML
     /* changes time's speed */
-    public void onTimeChangeSpeed(ActionEvent actionEvent) {
+    public void onTimeChangeSpeed() {
         float scale = Float.parseFloat(changeTimeSpeed.getText());
         timer.cancel();
         startTime(scale);
+    }
+
+    @FXML
+    public void showTime(){
+        clock.clear();
+        clock.setText(time.toString());
     }
 
     @FXML
@@ -97,7 +105,8 @@ public class ControllerGui {
                 for (TimeUpdate update : updates) {
 
                 }
+                showTime();
             }
-        }, 0, 1000);
+        }, 0, (long)(1000/scale));
     }
 }
