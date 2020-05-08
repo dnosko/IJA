@@ -2,13 +2,13 @@ package model;
 
 import java.util.List;
 
-public interface Line {
+public interface DataHolder {
 
-    String getId();
+    List<Stop> getStops();
 
     List<Street> getStreets();
 
-    List<Stop> getStops();
+    List<Line> getLines();
 
     List<Bus> getBuses();
 }
