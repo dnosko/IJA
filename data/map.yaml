@@ -1,0 +1,183 @@
+streets:
+  -
+  &street1 name: "Street 1"
+  begin:
+    x: 0.00
+    y: 46.00
+  end:
+    x: 298.00
+    y: 46.00
+  stops:
+  -
+  &street2 name: "Street 2"
+    begin:
+      x: 0.00
+      y: 100.00
+    end:
+      x: 253.00
+      y: 100.00
+    stops:
+  -
+  &street3 name: "Street 3"
+    begin:
+      x: 0.00
+      y: 180.00
+    end:
+      x: 257.00
+      y: 180.00
+    stops:
+  -
+  &street4 name: "Street 4"
+    begin:
+      x: 0.00
+      y: 235.00
+    end:
+      x: 300.00
+      y: 235.00
+    stops:
+      -
+  &street5 name: "Street 5"
+    begin:
+      x: 0.00
+      y: 293.00
+    end:
+      x: 258.00
+      y: 293.00
+    stops:
+      -
+  &street6 name: "Street 6"
+    begin:
+      x: 17.00
+      y: 0.00
+    end:
+      x: 17.00
+      y: 293.00
+    stops:
+      -
+  &street7 name: "Street 7"
+    begin:
+      x: 55.00
+      y: 0.00
+    end:
+      x: 55.00
+      y: 293.00
+    stops:
+      -
+  &street8 name: "Street 8"
+    begin:
+      x: 100.00
+      y: 0.00
+    end:
+      x: 100.00
+      y: 293.00
+    stops:
+      -
+  &street9 name: "Street 9"
+    begin:
+      x: 300.00
+      y: 46.00
+    end:
+      x: 190.00
+      y: 180.00
+    stops:
+      -
+  &street10 name: "Street 10"
+    begin:
+      x: 300.00
+      y: 46.00
+    end:
+      x: 300.00
+      y: 235.00
+    stops:
+      -
+  &street11 name: "Street 11"
+    begin:
+      x: 165.00
+      y: 180.00
+    end:
+      x: 346.00
+      y: 400.00
+    stops:
+      -
+  &street12 name: "Street 12"
+    begin:
+      x: 257.00
+      y: 180.00
+    end:
+      x: 435.00
+      y: 400.00
+    stops:
+      -
+  &street13 name: "Street 13"
+    begin:
+      x: 333.00
+      y: 0.00
+    end:
+      x: 333.00
+      y: 180.00
+    stops:
+      -
+  &street14 name: "Street 14"
+    begin:
+      x: 366.00
+      y: 0.00
+    end:
+      x: 366.00
+      y: 180.00
+    stops:
+      -
+  &street15 name: "Street 15"
+    begin:
+      x: 333.00
+      y: 113.00
+    end:
+      x: 484.00
+      y: 133.00
+    stops:
+      -
+  &street16 name: "Street 16"
+    begin:
+      x: 300.00
+      y: 180.00
+    end:
+      x: 484.00
+      y: 180.00
+    stops:
+      -
+  &street17 name: "Street 17"
+    begin:
+      x: 390.00
+      y: 180.00
+    end:
+      x: 390.00
+      y: 400.00
+    stops:
+      -
+  &street18 name: "Street 18"
+    begin:
+      x: 325.00
+      y: 265.00
+    end:
+      x: 484.00
+      y: 265.00
+    stops:
+      -
+  &street19 name: "Street 19"
+    begin:
+      x: 388.00
+      y: 340.00
+    end:
+      x: 485.00
+      y: 340.00
+    stops:
+      -
+  &street20 name: "Street 20"
+    begin:
+      x: 100.00
+      y: 25.00
+    end:
+      x: 485.00
+      y: 25.00
+    stops:
+      -
+

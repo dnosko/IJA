@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="996.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Line endX="372" layoutX="115.0" layoutY="76.0" startX="-115.0" />
+      <Line endX="300" endY="0.207" layoutX="115.0" layoutY="294.0" startX="-115.0" />
+      <Line endX="-100.0" endY="320.0" layoutX="124.0" layoutY="161.0" startX="-100.0" startY="-161.0" />
+      <Line endX="-100.0" endY="320.0" layoutX="186.0" layoutY="161.0" startX="-100.0" startY="-161.0" />
+      <Line endX="-100.0" endY="320.0" layoutX="264.0" layoutY="161.0" startX="-100.0" startY="-161.0" />
+      <Line endX="381.0" layoutX="108.0" layoutY="385.0" startX="-108.0" />
+      <Line endX="300.0" layoutX="123.0" layoutY="481.0" startX="-126.0" AnchorPane.leftAnchor="-4.0" AnchorPane.rightAnchor="578.0" />
+      <Line endX="94.5" endY="233.0" layoutX="469.0" layoutY="418.0" startX="-202.5" startY="-123.5" />
+      <Line endX="55.0" endY="-125.5" layoutX="433.0" layoutY="202.0" startX="-123.0" startY="91.5" />
+      <Line endX="201.0" layoutX="591.0" layoutY="560.0" startX="-102.0" AnchorPane.rightAnchor="201.0" />
+      <Line endX="94.5" endY="233.0" layoutX="617.0" layoutY="417.0" startX="-202.5" startY="-123.5" />
+      <Line endX="102.0" endY="124.5" layoutX="388.0" layoutY="261.0" startX="100.0" startY="-185.0" />
+      <Line endX="201.0" layoutX="592.0" layoutY="295.0" startX="-103.0" startY="-1.0" />
+      <Line endX="-100.0" endY="414.0" layoutX="739.0" layoutY="237.0" startX="-100.0" startY="59.0" />
+      <Line endX="-100.0" endY="345.0" layoutX="699.0" layoutY="-51.0" startX="-100.0" startY="51.0" />
+      <Line endX="528.0" layoutX="266.0" layoutY="38.0" startX="-102.0" AnchorPane.rightAnchor="201.0" />
+      <Line endX="-100.0" endY="345.0" layoutX="645.0" layoutY="-51.0" startX="-100.0" startY="51.0" />
+      <Line endX="-88.70709228515625" endY="416.29290771484375" layoutX="883.0" layoutY="242.0" startX="-88.70709228515625" startY="-249.0" stroke="#da0d0d" />
+      <Line endX="390.0" layoutX="100.0" layoutY="560.0" startX="-100.0" />
+      <Line endX="151.0" layoutX="645.0" layoutY="185.0" startX="-100.0" AnchorPane.leftAnchor="544.5" AnchorPane.rightAnchor="201.0" />
+      <Line endX="163.0" layoutX="631.0" layoutY="434.0" startX="-100.0" AnchorPane.rightAnchor="201.0" />
+      <Text layoutX="115.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
+      <Text layoutX="109.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" />
+      <Text layoutX="109.0" layoutY="301.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
+      <Text layoutX="95.0" layoutY="391.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4" />
+      <Text layoutX="109.0" layoutY="487.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" />
+      <Text layoutX="10.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6" />
+      <Text layoutX="160.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="7" />
+      <Text layoutX="216.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8" />
+      <Text layoutX="416.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9" />
+      <Text layoutX="476.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10" />
+      <Text layoutX="370.0" layoutY="447.0" strokeType="OUTSIDE" strokeWidth="0.0" text="11" />
+      <Text layoutX="498.0" layoutY="418.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12" />
+      <Text layoutX="531.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="13" />
+      <Text layoutX="585.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="14" />
+      <Text layoutX="639.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="15" />
+      <Text layoutX="683.0" layoutY="301.0" strokeType="OUTSIDE" strokeWidth="0.0" text="16" />
+      <Text layoutX="625.0" layoutY="391.0" strokeType="OUTSIDE" strokeWidth="0.0" text="17" />
+      <Text layoutX="677.0" layoutY="439.0" strokeType="OUTSIDE" strokeWidth="0.0" text="18" />
+      <Text layoutX="685.0" layoutY="566.0" strokeType="OUTSIDE" strokeWidth="0.0" text="19" />
+      <Text layoutX="181.0" layoutY="574.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20" />
+   </children>
+</AnchorPane>
