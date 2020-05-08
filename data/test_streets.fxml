@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="996.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Line endX="52.207122802734375" endY="0.7071075439453125" layoutX="115.0" layoutY="76.0" startX="-91.5" />
-      <Line endX="49.5" endY="0.207000732421875" layoutX="115.0" layoutY="294.0" startX="-90.29289245605469" startY="0.207000732421875" />
-      <Line endX="-100.0" endY="320.0" layoutX="124.0" layoutY="161.0" startX="-101.0" startY="-85.5" />
-      <Line endX="-99.0" endY="355.9140930175781" layoutX="266.0" layoutY="-61.0" startX="-99.0" startY="137.5" />
-      <Line endX="-69.8555908203125" endY="0.70709228515625" layoutX="123.0" layoutY="481.0" startX="-322.9974365234375" startY="0.5" AnchorPane.rightAnchor="578.0" />
-      <Line endX="94.5" endY="233.0" layoutX="469.0" layoutY="418.0" startX="-51.4439697265625" startY="64.4141845703125" />
-      <Line endX="-123.0" endY="-126.5" layoutX="290.0" layoutY="412.0" startX="-123.0" startY="70.4141845703125" />
-      <Line endX="201.0" layoutX="591.0" layoutY="560.0" startX="45.51470947265625" AnchorPane.rightAnchor="201.0" />
-      <Line endX="-88.0" endY="17.20709228515625" layoutX="617.0" layoutY="417.0" startX="-202.5" startY="-123.5" />
-      <Line endX="100.70709228515625" endY="33.20709228515625" layoutX="388.0" layoutY="261.0" startX="100.0" startY="-185.0" />
-      <Line endX="48.603515625" endY="-1.20709228515625" layoutX="592.0" layoutY="295.0" startX="-47.5" startY="-0.5" />
-      <Line endX="-101.0" endY="323.5" layoutX="739.0" layoutY="237.0" startX="-98.79290771484375" startY="197.0" />
-      <Line endX="278.5" layoutX="266.0" layoutY="38.0" startX="-102.0" />
-      <Line endX="-100.0" endY="345.0" layoutX="645.0" layoutY="-51.0" startX="-100.0" startY="89.5" />
+      <Line endX="52.207122802734375" endY="0.7071075439453125" layoutX="115.0" layoutY="76.0" startX="-91.5" stroke="#e317b2" />
+      <Line endX="49.5" endY="0.207000732421875" layoutX="115.0" layoutY="294.0" startX="-90.29289245605469" startY="0.207000732421875" stroke="#2222c3" />
+      <Line endX="-100.0" endY="320.0" layoutX="124.0" layoutY="161.0" startX="-101.0" startY="-85.5" stroke="#da2222" />
+      <Line endX="-99.0" endY="355.9140930175781" layoutX="266.0" layoutY="-61.0" startX="-99.0" startY="137.5" stroke="#1136da" />
+      <Line endX="-69.8555908203125" endY="0.70709228515625" layoutX="123.0" layoutY="481.0" startX="-322.9974365234375" startY="0.5" stroke="#eb1717" AnchorPane.rightAnchor="578.0" />
+      <Line endX="94.5" endY="233.0" layoutX="469.0" layoutY="418.0" startX="-51.4439697265625" startY="64.4141845703125" stroke="#f21010" />
+      <Line endX="-123.0" endY="-126.5" layoutX="290.0" layoutY="412.0" startX="-123.0" startY="70.4141845703125" stroke="#0fda13" />
+      <Line endX="201.0" layoutX="591.0" layoutY="560.0" startX="45.51470947265625" stroke="#0cc935" AnchorPane.rightAnchor="201.0" />
+      <Line endX="-88.0" endY="17.20709228515625" layoutX="617.0" layoutY="417.0" startX="-202.5" startY="-123.5" stroke="#08cf55" />
+      <Line endX="100.70709228515625" endY="33.20709228515625" layoutX="388.0" layoutY="261.0" startX="100.0" startY="-185.0" stroke="#2648eb" />
+      <Line endX="48.603515625" endY="-1.20709228515625" layoutX="592.0" layoutY="295.0" startX="-47.5" startY="-0.5" stroke="#1714f7" />
+      <Line endX="-101.0" endY="323.5" layoutX="739.0" layoutY="237.0" startX="-98.79290771484375" startY="197.0" stroke="#10c322" />
+      <Line endX="278.5" layoutX="266.0" layoutY="38.0" startX="-102.0" stroke="#9c12e0" />
+      <Line endX="-100.0" endY="345.0" layoutX="645.0" layoutY="-51.0" startX="-100.0" startY="89.5" stroke="#0f0fda" />
       <Line endX="-88.70709228515625" endY="416.29290771484375" layoutX="883.0" layoutY="242.0" startX="-88.70709228515625" startY="-249.0" stroke="#da0d0d" />
-      <Line endX="8.70709228515625" layoutX="631.0" layoutY="434.0" startX="-100.0" />
+      <Line endX="8.70709228515625" layoutX="631.0" layoutY="434.0" startX="-100.0" stroke="#02cf56" />
       <Text layoutX="115.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
       <Text layoutX="251.0" layoutY="486.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" />
       <Text layoutX="109.0" layoutY="301.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
@@ -42,13 +43,35 @@
       <Text layoutX="579.0" layoutY="437.0" strokeType="OUTSIDE" strokeWidth="0.0" text="18" />
       <Text layoutX="685.0" layoutY="566.0" strokeType="OUTSIDE" strokeWidth="0.0" text="19" />
       <Text layoutX="266.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20" />
-      <Line endX="48.0" endY="0.4141845703125" layoutX="115.0" layoutY="482.0" startX="-90.29289245605469" startY="0.207000732421875" />
-      <Line endX="163.79290771484375" endY="-1.20709228515625" layoutX="250.0" layoutY="294.0" startX="-90.29289245605469" startY="0.207000732421875" />
-      <Line endX="-90.29287719726562" endY="-172.79290771484375" layoutX="254.0" layoutY="216.0" startX="-87.5" startY="-140.0" />
-      <Line endX="-99.79290771484375" endY="326.5" layoutX="740.0" layoutY="108.0" startX="-99.0" startY="186.5" />
-      <Line endX="6.0" endY="-0.5" layoutX="538.0" layoutY="296.0" startX="-47.5" startY="-0.5" />
+      <Line endX="48.0" endY="0.4141845703125" layoutX="115.0" layoutY="482.0" startX="-90.29289245605469" startY="0.207000732421875" stroke="#e82121" />
+      <Line endX="163.79290771484375" endY="-1.20709228515625" layoutX="250.0" layoutY="294.0" startX="-90.29289245605469" startY="0.207000732421875" stroke="#0cf54e" />
+      <Line endX="-90.29287719726562" endY="-172.79290771484375" layoutX="254.0" layoutY="216.0" startX="-87.5" startY="-140.0" stroke="#e53af0" />
+      <Line endX="-99.79290771484375" endY="326.5" layoutX="740.0" layoutY="108.0" startX="-99.0" startY="186.5" stroke="#1f04c2" />
+      <Line endX="6.0" endY="-0.5" layoutX="538.0" layoutY="296.0" startX="-47.5" startY="-0.5" stroke="#0e0ebf" />
       <Text layoutX="500.0" layoutY="293.0" strokeType="OUTSIDE" strokeWidth="0.0" text="21" />
-      <Line endX="218.353515625" endY="-1.7071075439453125" layoutX="270.0" layoutY="77.0" startX="-104.89642333984375" startY="-0.2928924560546875" />
+      <Line endX="218.353515625" endY="-1.7071075439453125" layoutX="270.0" layoutY="77.0" startX="-104.89642333984375" startY="-0.2928924560546875" stroke="#3f25db" />
       <Text layoutX="327.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="22" />
+      <Circle fill="DODGERBLUE" layoutX="530.0" layoutY="38.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="243.0" layoutY="38.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="167.0" layoutY="52.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="95.0" layoutY="78.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="25.0" layoutY="122.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="25.0" layoutY="440.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="139.0" layoutY="483.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="307.0" layoutY="483.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="556.0" layoutY="637.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="79.0" layoutY="296.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="165.0" layoutY="194.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="259.0" layoutY="76.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="487.0" layoutY="166.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="522.0" layoutY="289.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="596.0" layoutY="295.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="638.0" layoutY="394.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="548.0" layoutY="278.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="167.0" layoutY="456.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="201.0" layoutY="297.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="641.0" layoutY="520.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="556.0" layoutY="435.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="724.0" layoutY="560.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
    </children>
 </AnchorPane>

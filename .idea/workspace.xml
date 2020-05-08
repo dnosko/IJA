@@ -2,16 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/view/ControllerGui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/gui/sample.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/test_streets.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/data/test_streets.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java/view/Controller.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java/view/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java/view/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java/view/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java/view/sample.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Controller.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/sample.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java/view/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java/view/sample.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/ControllerGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/ControllerGui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/sample.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +59,14 @@
     </breakpoint_any>
     <ui_properties converted="true" />
     <breakpoint_rules converted="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -127,12 +133,12 @@
       <Port>5050</Port>
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="view.Main" />
+      <option name="MAIN_CLASS_NAME" value="gui.Main" />
       <module name="java" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="view.*" />
+          <option name="PATTERN" value="gui.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -210,6 +216,10 @@
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
     <state x="836" y="271" key="#com.intellij.execution.impl.EditConfigurationsDialog/70.27.1850.1053@70.27.1850.1053" timestamp="1588872037140" />
+    <state x="1233" y="256" width="374" height="592" key="#com.intellij.ide.util.MemberChooser" timestamp="1588953868341">
+      <screen x="70" y="27" width="1850" height="1053" />
+    </state>
+    <state x="1233" y="256" width="374" height="592" key="#com.intellij.ide.util.MemberChooser/70.27.1850.1053@70.27.1850.1053" timestamp="1588953868341" />
     <state x="1120" y="303" width="524" height="491" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog" timestamp="1588862528555">
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
@@ -222,22 +232,22 @@
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
     <state x="1014" y="288" width="735" height="555" key="FileChooserDialogImpl/70.27.1850.1053@70.27.1850.1053" timestamp="1588871826374" />
-    <state width="1097" height="260" key="GridCell.Tab.0.bottom" timestamp="1588931079177">
+    <state width="943" height="260" key="GridCell.Tab.0.bottom" timestamp="1588957629982">
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
-    <state width="1097" height="260" key="GridCell.Tab.0.bottom/70.27.1850.1053@70.27.1850.1053" timestamp="1588931079177" />
-    <state width="1097" height="260" key="GridCell.Tab.0.center" timestamp="1588931079177">
+    <state width="943" height="260" key="GridCell.Tab.0.bottom/70.27.1850.1053@70.27.1850.1053" timestamp="1588957629982" />
+    <state width="943" height="260" key="GridCell.Tab.0.center" timestamp="1588957629982">
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
-    <state width="1097" height="260" key="GridCell.Tab.0.center/70.27.1850.1053@70.27.1850.1053" timestamp="1588931079177" />
-    <state width="1097" height="260" key="GridCell.Tab.0.left" timestamp="1588931079176">
+    <state width="943" height="260" key="GridCell.Tab.0.center/70.27.1850.1053@70.27.1850.1053" timestamp="1588957629982" />
+    <state width="943" height="260" key="GridCell.Tab.0.left" timestamp="1588957629981">
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
-    <state width="1097" height="260" key="GridCell.Tab.0.left/70.27.1850.1053@70.27.1850.1053" timestamp="1588931079176" />
-    <state width="1097" height="260" key="GridCell.Tab.0.right" timestamp="1588931079177">
+    <state width="943" height="260" key="GridCell.Tab.0.left/70.27.1850.1053@70.27.1850.1053" timestamp="1588957629981" />
+    <state width="943" height="260" key="GridCell.Tab.0.right" timestamp="1588957629982">
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
-    <state width="1097" height="260" key="GridCell.Tab.0.right/70.27.1850.1053@70.27.1850.1053" timestamp="1588931079177" />
+    <state width="943" height="260" key="GridCell.Tab.0.right/70.27.1850.1053@70.27.1850.1053" timestamp="1588957629982" />
     <state x="701" y="94" width="1024" height="852" key="SettingsEditor" timestamp="1588874248729">
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
@@ -246,5 +256,9 @@
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
     <state x="1056" y="246" key="run.anything.popup/70.27.1850.1053@70.27.1850.1053" timestamp="1588862899510" />
+    <state x="1088" y="265" width="672" height="678" key="search.everywhere.popup" timestamp="1588957505090">
+      <screen x="70" y="27" width="1850" height="1053" />
+    </state>
+    <state x="1088" y="265" width="672" height="678" key="search.everywhere.popup/70.27.1850.1053@70.27.1850.1053" timestamp="1588957505090" />
   </component>
 </project>
