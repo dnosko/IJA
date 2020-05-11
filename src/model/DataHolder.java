@@ -1,6 +1,5 @@
 package model;
 
-import javax.sound.midi.SysexMessage;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.File;
@@ -18,6 +17,7 @@ public class DataHolder {
         File streetsFile = new File(folderPath + "streets.txt");
         File stopsFile = new File(folderPath + "stops.txt");
         File linesFile = new File(folderPath + "lines.txt");
+        File busesFile = new File(folderPath + "buses.txt");
 
         Scanner scanner;
 
@@ -119,6 +119,34 @@ public class DataHolder {
 
                 Line line = new Line(splitWords[0], stops, streets);
                 this.lines.add(line);
+            }
+
+            scanner.close();
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("file not found");
+            e.printStackTrace();
+            System.exit(-1);
+        }
+
+
+        /* handling buses file */
+        try {
+            scanner = new Scanner(busesFile);
+
+            while (scanner.hasNextLine()) {
+                String fileLine = scanner.nextLine();
+
+                String[] splitWords = fileLine.split(" ", -1);
+                String[] splitTime = splitWords[1].split(":", -1);
+                int time = Integer.parseInt(splitTime[0]) * 60 + Integer.parseInt(splitTime[1]);
+
+                for ( Line line : this.lines ) {
+                    if ( line.getId().equals(splitWords[0]) ) {
+                        line.setBusesTimes(time);
+                        break;
+                    }
+                }
             }
 
             scanner.close();

@@ -1,3 +1,0 @@
-bus1 stop1-stop2-stop3-stop4-stop5-stop6-stop7-stop8-stop9-stop10 street20-street14-street1-street6-street4-street5-street2-street11
-bus2 stop17-stop1-stop2-stop3-stop4-stop5-stop10-stop11-stop12-stop13-stop14-stop15-stop16 street13-street20-street14-street1-street6-street3-street8-street22-street10-street21-street16-street15
-bus3 stop18-stop19-stop20-stop21-stop22 street9-street7-street12-street18-street17-street19

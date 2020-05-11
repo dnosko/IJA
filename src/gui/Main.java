@@ -24,7 +24,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        DataHolder holder = new DataHolder("src/model/");
+        DataHolder holder = new DataHolder("data/");
         ControllerGui controller = loader.getController();
         //controller.setElements(//LIST_STREET, LIST_STOPS ...);
         controller.startTime(1);
