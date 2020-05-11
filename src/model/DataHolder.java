@@ -1,5 +1,6 @@
 package model;
 
+import javax.sound.midi.SysexMessage;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.File;
@@ -12,11 +13,11 @@ public class DataHolder {
     private List<Street> streets = new ArrayList<>();
     private List<Line> lines = new ArrayList<>();
 
-    public DataHolder(String pathFolder) {
+    public DataHolder(String folderPath) {
 
-        File streetsFile = new File(pathFolder + "streets.txt");
-        File stopsFile = new File(pathFolder + "stops.txt");
-        File linesFile = new File(pathFolder + "lines.txt");
+        File streetsFile = new File(folderPath + "streets.txt");
+        File stopsFile = new File(folderPath + "stops.txt");
+        File linesFile = new File(folderPath + "lines.txt");
 
         Scanner scanner;
 
@@ -59,13 +60,15 @@ public class DataHolder {
                 coordinates.add(new Coordinate(Double.parseDouble(splitWords[1]), Double.parseDouble(splitWords[2])));
                 coordinates.add(new Coordinate(Double.parseDouble(splitWords[3]), Double.parseDouble(splitWords[4])));
 
-                String[] splitStops = splitWords[2].split("-", -1);
                 List<Stop> stops = new ArrayList<>();
-                for ( String stopId : splitStops ) {
-                    for ( Stop stop : this.stops ) {
-                        if ( stop.getId().equals(stopId) ) {
-                            stops.add(stop);
-                            break;
+                if ( splitWords.length > 5 ) {
+                    String[] splitStops = splitWords[5].split("-", -1);
+                    for (String stopId : splitStops) {
+                        for (Stop stop : this.stops) {
+                            if (stop.getId().equals(stopId)) {
+                                stops.add(stop);
+                                break;
+                            }
                         }
                     }
                 }

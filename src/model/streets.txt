@@ -1,5 +1,5 @@
 street1 17 46 100 46 stop4
-street2 100 293 258 293 stop 8
+street2 100 293 258 293 stop8
 street3 100 180 257 180 stop10
 street4 17 180 17 293 stop6
 street5 17 293 100 293 stop7
