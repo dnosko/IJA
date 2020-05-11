@@ -16,7 +16,7 @@ public class Main extends Application {
         primaryStage.setTitle("IJA 2020");
         primaryStage.setScene(new Scene(root, 800, 600));
 
-        DataHolder holder = new DataHolder("./../../data");
+        DataHolder holder = new DataHolder("src/model/");
 
         primaryStage.show();
     }

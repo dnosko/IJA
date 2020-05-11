@@ -14,9 +14,9 @@ public class DataHolder {
 
     public DataHolder(String pathFolder) {
 
-        File streetsFile = new File("streets.txt");
-        File stopsFile = new File("stops.txt");
-        File linesFile = new File("lines.txt");
+        File streetsFile = new File(pathFolder + "streets.txt");
+        File stopsFile = new File(pathFolder + "stops.txt");
+        File linesFile = new File(pathFolder + "lines.txt");
 
         Scanner scanner;
 
