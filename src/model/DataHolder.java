@@ -8,9 +8,9 @@ import java.util.Scanner;
 
 public class DataHolder {
 
-    private List<Stop> stops;
-    private List<Street> streets;
-    private List<Line> lines;
+    private List<Stop> stops = new ArrayList<>();
+    private List<Street> streets = new ArrayList<>();
+    private List<Line> lines = new ArrayList<>();
 
     public DataHolder(String pathFolder) {
 
@@ -31,7 +31,7 @@ public class DataHolder {
                 String[] splitWords = fileLine.split(" ", -1);
 
                 String id = splitWords[0];
-                Coordinate coordinate = new Coordinate(Integer.parseInt(splitWords[1]), Integer.parseInt(splitWords[2]));
+                Coordinate coordinate = new Coordinate(Double.parseDouble(splitWords[1]), Double.parseDouble(splitWords[2]));
 
                 Stop stop = new Stop(id, coordinate);
                 this.stops.add(stop);
@@ -56,8 +56,8 @@ public class DataHolder {
                 String[] splitWords = fileLine.split(" ", -1);
 
                 List<Coordinate> coordinates = new ArrayList<>();
-                coordinates.add(new Coordinate(Integer.parseInt(splitWords[1]), Integer.parseInt(splitWords[2])));
-                coordinates.add(new Coordinate(Integer.parseInt(splitWords[3]), Integer.parseInt(splitWords[4])));
+                coordinates.add(new Coordinate(Double.parseDouble(splitWords[1]), Double.parseDouble(splitWords[2])));
+                coordinates.add(new Coordinate(Double.parseDouble(splitWords[3]), Double.parseDouble(splitWords[4])));
 
                 String[] splitStops = splitWords[2].split("-", -1);
                 List<Stop> stops = new ArrayList<>();
