@@ -23,7 +23,7 @@ public class StreetGui implements Drawable {
     public List<Shape> getGUI() {
         return Arrays.asList(
                 new Line(this.start.getX(),this.start.getY(),this.end.getX(),this.end.getY())
-               // new Text(Math.abs(this.start.getX()+this.end.getX()/2),Math.abs(this.start.getY()+this.end.getY()/2),this.name)
+               // new Text(this.start.getX(),this.start.getY(),this.name)
         );
     }
 }
