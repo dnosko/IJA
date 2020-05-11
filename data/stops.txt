@@ -7,7 +7,7 @@ stop6 17 270
 stop7 70 293
 stop8 230 293
 stop9 260 295
-stop10 150 180
+stop10 50 180
 stop11 100 100
 stop12 180 46
 stop13 300 140
