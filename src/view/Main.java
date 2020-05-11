@@ -1,5 +1,7 @@
 package view;
 
+import model.*;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,6 +15,9 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("IJA 2020");
         primaryStage.setScene(new Scene(root, 800, 600));
+
+        DataHolder holder = new DataHolder("./../../data");
+
         primaryStage.show();
     }
 

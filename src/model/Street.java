@@ -2,15 +2,39 @@ package model;
 
 import java.util.List;
 
-public interface Street {
+public class Street {
 
-    String getId();
+    private String id;
+    private List<Coordinate> coordinates;
+    private List<Stop> stops;
 
-    List<Coordinate> getCoordinates();
+    public Street(String id, List<Coordinate> coordinates, List<Stop> stops) {
+        this.id = id;
+        this.coordinates = coordinates;
+        this.stops = stops; // if no stops than empty list
 
-    List<Stop> getStops();
+        for ( Stop stop : stops ) {
+            stop.setStreet(this);
+        }
+    }
 
-    Coordinate start();
+    public String getId () {
+        return this.id;
+    }
 
-    Coordinate end();
+    public List<Coordinate> getCoordinates () {
+        return this.coordinates;
+    }
+
+    public List<Stop> getStops () {
+        return this.stops;
+    }
+
+    public Coordinate start () {
+        return this.coordinates.get(0);
+    }
+
+    public Coordinate end () {
+        return this.coordinates.get(coordinates.size()-1);
+    }
 }

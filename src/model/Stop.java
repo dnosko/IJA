@@ -1,10 +1,29 @@
 package model;
 
-public interface Stop {
+public class Stop {
 
-    String getId();
+    private String id;
+    private Coordinate coordinate;
+    private Street street;
 
-    Coordinate getCoordinate();
+    public Stop(String id, Coordinate coordinate) {
+        this.id = id;
+        this.coordinate = coordinate;
+    }
 
-    Street getStreet();
+    public void setStreet (Street street) {
+        this.street = street;
+    }
+
+    public String getId () {
+        return this.id;
+    }
+
+    public Coordinate getCoordinate () {
+        return this.coordinate;
+    }
+
+    public Street getStreet () {
+        return this.street;
+    }
 }

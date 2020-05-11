@@ -2,13 +2,28 @@ package model;
 
 import java.util.List;
 
-public interface Line {
+public class Line {
 
-    String getId();
+    private String id;
+    private List<Street> streets;
+    private List<Stop> stops;
 
-    List<Street> getStreets();
+    public Line(String id, List<Stop> stops, List<Street> streets) {
+        this.id = id;
+        this.stops = stops;
+        this.streets = streets;
+    }
 
-    List<Stop> getStops();
 
-    List<Bus> getBuses();
+    public String getId() {
+        return this.id;
+    }
+
+    public List<Street> getStreets() {
+        return this.streets;
+    }
+
+    public List<Stop> getStops() {
+        return this.stops;
+    }
 }
