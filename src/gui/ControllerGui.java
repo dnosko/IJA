@@ -47,9 +47,14 @@ public class ControllerGui {
     @FXML
     /* changes time's speed */
     public void onTimeChangeSpeed() {
-        float scale = Float.parseFloat(changeTimeSpeed.getText());
-        timer.cancel();
-        startTime(scale);
+        try {
+            float scale = Float.parseFloat(changeTimeSpeed.getText());
+            timer.cancel();
+            startTime(scale);
+        }
+        catch (IllegalArgumentException e) {
+            changeTimeSpeed.replaceSelection("Must be a positive number.");
+        }
     }
 
     @FXML
