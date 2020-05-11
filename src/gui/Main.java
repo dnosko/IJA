@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.DataHolder;
 
 import javax.sound.sampled.Line;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        DataHolder holder = new DataHolder("src/model/");
         ControllerGui controller = loader.getController();
         //controller.setElements(//LIST_STREET, LIST_STOPS ...);
         controller.startTime(1);
