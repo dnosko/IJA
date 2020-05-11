@@ -45,9 +45,7 @@ public class Main extends Application {
         for (Line line : lineList) {
             List<Stop> StopsLine = line.getStops();
             List<Coordinate> pathCoords = new ArrayList<>();
-           /* for (Stop stop : StopsLine) {
-                pathCoords.add(stop.getCoordinate());
-            } */
+
             List<Street> StreetLine = line.getStreets();
             pathCoords.add(StopsLine.get(0).getCoordinate()); //first stop
             for (Street str : StreetLine) {

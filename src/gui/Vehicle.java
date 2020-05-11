@@ -61,8 +61,5 @@ public class Vehicle implements Drawable, TimeUpdate {
         Coordinate coords = path.getCoordinateDistance(distance);
         move(coords);
         position = coords;
-        // pridat podmienku iba do poslednej stop
-        //Coordinate coords = path.getCoordinateByDistance(distance);
-
     }
 }
