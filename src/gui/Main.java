@@ -4,8 +4,12 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import model.Coordinate;
 import model.DataHolder;
+import model.Stop;
+import model.Street;
 
 import javax.sound.midi.SysexMessage;
 import javax.sound.sampled.Line;
@@ -26,11 +30,31 @@ public class Main extends Application {
 
         DataHolder holder = new DataHolder("data/");
         ControllerGui controller = loader.getController();
-        //controller.setElements(//LIST_STREET, LIST_STOPS ...);
+
+
+        /*elements.add(new Vehicle(new Coordinate(100,100),2, Color.AQUA, new Path(
+                Arrays.asList( new Coordinate(100,100),
+                               new Coordinate(500,500),
+                        new Coordinate(1000,600)
+                             )
+        ))); */
+
+        controller.setElements(add_elements(holder.getStreets(), holder.getStops()));
         controller.startTime(1);
 
     }
 
+    public List<Drawable> add_elements(List<Street> streetList, List<Stop> stopList) {
+        List<Drawable> elements = new ArrayList<>();
+
+        for (Street str : streetList) {
+            elements.add(new StreetGui(str.getId(),str.start(),str.end()));
+        }
+        for (Stop stop : stopList) {
+            elements.add(new StopGui(stop.getId(),stop.getCoordinate()));
+        }
+        return elements;
+    }
 
     public static void main(String[] args) {
         launch(args);
