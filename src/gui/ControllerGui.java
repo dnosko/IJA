@@ -91,8 +91,10 @@ public class ControllerGui {
         for (Drawable drawable : elements) {
             content.getChildren().addAll(drawable.getGUI());
             if (drawable instanceof TimeUpdate) {
+
                updates.add((TimeUpdate) drawable);
             }
+
         }
     }
 

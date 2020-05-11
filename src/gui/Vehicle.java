@@ -4,6 +4,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import model.Coordinate;
+import model.Line;
+import model.Stop;
 
 import java.awt.*;
 import java.time.LocalTime;
@@ -16,13 +18,27 @@ public class Vehicle implements Drawable, TimeUpdate {
     private Coordinate position;
     private List<Shape> gui;
     public Path path;
+    private List<Stop> stops;
 
-    public Vehicle(Coordinate position, double speed, Color color, Path path) {
-        this.position = position;
+    public Vehicle(Line line, double speed, Path path) {
+        this.stops = line.getStops();
+        this.position = this.stops.get(0).getCoordinate(); //first position
         this.speed = speed;
         this.path = path;
         gui = new ArrayList<>();
-        gui.add(new Circle(this.position.getX(),this.position.getY(),8,color));
+        gui.add(new Circle(this.position.getX(),this.position.getY(),8,getColor(line.getId())));
+    }
+
+    private Color getColor(String lineName) {
+        switch (lineName) {
+            case "line1":
+                return Color.RED;
+            case "line2":
+                return Color.BLUE;
+            case "line3":
+                return Color.GREEN;
+        }
+        return null;
     }
 
     @Override
@@ -33,15 +49,18 @@ public class Vehicle implements Drawable, TimeUpdate {
     public void move(Coordinate coordinates) {
         for (Shape shape : gui) {
             shape.setTranslateX(coordinates.getX() - position.getX() + shape.getTranslateX());
-            shape.setTranslateY(coordinates.getY() - position.getX() + shape.getTranslateY());
+            shape.setTranslateY(coordinates.getY() - position.getY() + shape.getTranslateY());
         }
     }
 
     @Override
     public void update(LocalTime time) {
         distance += speed;
+        if (distance > path.getPathsize())
+            return;
         Coordinate coords = path.getCoordinateDistance(distance);
         move(coords);
+        position = coords;
         // pridat podmienku iba do poslednej stop
         //Coordinate coords = path.getCoordinateByDistance(distance);
 

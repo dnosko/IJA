@@ -6,13 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import model.Coordinate;
-import model.DataHolder;
-import model.Stop;
-import model.Street;
+import model.*;
 
 import javax.sound.midi.SysexMessage;
-import javax.sound.sampled.Line;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,19 +28,12 @@ public class Main extends Application {
         ControllerGui controller = loader.getController();
 
 
-        /*elements.add(new Vehicle(new Coordinate(100,100),2, Color.AQUA, new Path(
-                Arrays.asList( new Coordinate(100,100),
-                               new Coordinate(500,500),
-                        new Coordinate(1000,600)
-                             )
-        ))); */
-
-        controller.setElements(add_elements(holder.getStreets(), holder.getStops()));
+        controller.setElements(add_elements(holder.getStreets(), holder.getStops(), holder.getLines()));
         controller.startTime(1);
 
     }
 
-    public List<Drawable> add_elements(List<Street> streetList, List<Stop> stopList) {
+    public List<Drawable> add_elements(List<Street> streetList, List<Stop> stopList, List<Line> lineList) {
         List<Drawable> elements = new ArrayList<>();
 
         for (Street str : streetList) {
@@ -53,6 +42,15 @@ public class Main extends Application {
         for (Stop stop : stopList) {
             elements.add(new StopGui(stop.getId(),stop.getCoordinate()));
         }
+        for (Line line : lineList) {
+            List<Stop> StopsLine = line.getStops();
+            List<Coordinate> pathCoords = new ArrayList<>();
+            for (Stop stop : StopsLine) {
+                pathCoords.add(stop.getCoordinate());
+            }
+            elements.add(new Vehicle(line,1, new Path (pathCoords)));
+        }
+
         return elements;
     }
 
