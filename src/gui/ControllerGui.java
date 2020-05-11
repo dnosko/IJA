@@ -91,7 +91,7 @@ public class ControllerGui {
         for (Drawable drawable : elements) {
             content.getChildren().addAll(drawable.getGUI());
             if (drawable instanceof TimeUpdate) {
-               // updates.add(TimeUpdate) drawable);
+               updates.add((TimeUpdate) drawable);
             }
         }
     }
@@ -103,7 +103,7 @@ public class ControllerGui {
             public void run() {
                 time = time.plusSeconds(1);
                 for (TimeUpdate update : updates) {
-
+                    update.update(time);
                 }
                 showTime();
             }
