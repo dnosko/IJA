@@ -8,6 +8,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
@@ -15,10 +16,7 @@ import javafx.scene.text.Text;
 
 import java.time.DateTimeException;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class ControllerGui {
 
@@ -94,7 +92,23 @@ public class ControllerGui {
            content.layout();
         }
     }
-    
+
+    public void removeLines(MouseEvent event) {
+        event.consume();
+        if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
+            for (Drawable element : elements) {
+                if (element.getType().equals("Vehicle")) {
+                    for (int i = 0; i < element.getGUI().size(); i++) {
+                        Shape el = element.getGUI().get(i);
+                        if (el.getTypeSelector().equals("Line")) {
+                            el.setStroke(Color.TRANSPARENT);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
     public void setElements(List<Drawable> elements){
         try {

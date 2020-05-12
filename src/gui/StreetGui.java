@@ -1,5 +1,6 @@
 package gui;
 
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
@@ -21,9 +22,15 @@ public class StreetGui implements Drawable {
 
     @Override
     public List<Shape> getGUI() {
+        javafx.scene.shape.Line line = new javafx.scene.shape.Line(this.start.getX(),this.start.getY(),this.end.getX(),this.end.getY());
         return Arrays.asList(
-                new Line(this.start.getX(),this.start.getY(),this.end.getX(),this.end.getY())
+                line
                // new Text(this.start.getX(),this.start.getY(),this.name)
         );
+    }
+
+    @Override
+    public String getType() {
+        return "Street";
     }
 }

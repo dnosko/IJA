@@ -8,7 +8,7 @@ import model.Coordinate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Path  {
+public class Path implements Drawable  {
     private List<Coordinate> path;
     private Color color;
     private List<Shape> gui = new ArrayList<>();
@@ -65,4 +65,10 @@ public class Path  {
         }
         return gui;
     }
+
+    @Override
+    public String getType() {
+        return "Path";
+    }
+
 }

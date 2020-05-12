@@ -25,7 +25,10 @@
     <center>
         <ScrollPane onKeyPressed="#onZoo" onScroll="#onZoom" pannable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <content>
-                <AnchorPane fx:id="content" minHeight="0.0" minWidth="0.0" onKeyPressed="#onZoo" onScroll="#onZoom" prefHeight="1000.0" prefWidth="1000.0" />
+                <AnchorPane fx:id="content" minHeight="0.0" minWidth="0.0" onKeyPressed="#onZoo" onScroll="#onZoom" prefHeight="1000.0" prefWidth="1000.0">
+               <children>
+                  <AnchorPane onMouseClicked="#removeLines" prefHeight="600.0" prefWidth="800.0" />
+               </children></AnchorPane>
             </content>
         </ScrollPane>
     </center>
