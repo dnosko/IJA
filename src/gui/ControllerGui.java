@@ -1,6 +1,5 @@
 package gui;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -8,17 +7,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import model.*;
 
 
 import java.time.DateTimeException;
 import java.time.LocalTime;
 import java.time.temporal.ChronoField;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class ControllerGui {
     @FXML
@@ -28,8 +23,7 @@ public class ControllerGui {
     @FXML
     private TextArea clock;
 
-    private List<Drawable> elements = new ArrayList<>();
-    private List<TimeUpdate> updates = new ArrayList<>();
+    private List<Vehicle> busElements = new ArrayList<>();
 
     private DataHolder holder;
 
@@ -96,14 +90,31 @@ public class ControllerGui {
         }
     }
 
-    public void setElements(List<Drawable> elements){
-        this.elements.addAll(elements);
+    private void setVehicleElements(List<Vehicle> elements){
+        for (Vehicle vehicle : elements) {
+            content.getChildren().addAll(vehicle.getGUI());
+        }
+    }
+
+    public void setMapBase() {
+        List<Drawable> elements = new ArrayList<>();
+
+        /* create street elements */
+        for (Street str : holder.getStreets()) {
+            elements.add(new StreetGui(str.getId(),str.start(),str.end()));
+        }
+
+        /* create stop elements */
+        for (Stop stop : holder.getStops()) {
+            elements.add(new StopGui(stop.getId(),stop.getCoordinate()));
+        }
+
+        this.setBaseElements(elements);
+    }
+
+    private void setBaseElements(List<Drawable> elements) {
         for (Drawable drawable : elements) {
             content.getChildren().addAll(drawable.getGUI());
-            if (drawable instanceof TimeUpdate) {
-               updates.add((TimeUpdate) drawable);
-            }
-
         }
     }
 
@@ -116,19 +127,20 @@ public class ControllerGui {
                     @Override
                     public void run() {
                         time = time.plusSeconds(1);
-                        for (TimeUpdate update : updates) {
-                            update.update(time);
+                        for (Vehicle vehicle : busElements) {
+                            vehicle.update(time);
                         }
                         showTime();
-                        activateOrDeactivateBuses();
+                        activateBuses();
+                        deactivateBuses();
                     }
                 });
             }
         }, 0, (long)(1000/scale));
     }
 
-    private void activateOrDeactivateBuses() {
-        List<Drawable> elements = new ArrayList<>();
+    private void activateBuses() {
+        List<Vehicle> elements = new ArrayList<>();
         for (Line line : this.holder.getLines()) {
             if ( line.getBusesTimes().contains(time.get(ChronoField.MINUTE_OF_DAY)) && time.get(ChronoField.SECOND_OF_MINUTE) <= 1 ) {
                 List<Stop> StopsLine = line.getStops();
@@ -156,7 +168,17 @@ public class ControllerGui {
         }
 
         if ( ! elements.isEmpty() ) {
-            this.setElements(elements);
+            this.busElements.addAll(elements);
+            this.setVehicleElements(elements);
+        }
+    }
+
+    private void deactivateBuses() {
+        for ( Vehicle vehicle : this.busElements ) {
+            if (vehicle.getDistance() > vehicle.getPath().getPathsize()) {
+                this.busElements.remove(vehicle);
+                content.getChildren().remove(vehicle.getGUI());
+            }
         }
     }
 

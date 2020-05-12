@@ -13,11 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Vehicle implements Drawable, TimeUpdate {
+
     private int distance = 0;
     private double speed = 1;
     private Coordinate position;
     private List<Shape> gui;
-    public Path path;
+    private Path path;
     private List<Stop> stops;
 
     public Vehicle(Line line, double speed, Path path) {
@@ -56,10 +57,17 @@ public class Vehicle implements Drawable, TimeUpdate {
     @Override
     public void update(LocalTime time) {
         distance += speed;
-        if (distance > path.getPathsize())
-            return;
         Coordinate coords = path.getCoordinateDistance(distance);
         move(coords);
         position = coords;
     }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public Path getPath() {
+        return path;
+    }
+
 }

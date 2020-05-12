@@ -4,14 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.*;
-
-import javax.sound.midi.SysexMessage;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Main extends Application {
 
@@ -28,22 +22,8 @@ public class Main extends Application {
         ControllerGui controller = loader.getController();
 
         controller.setHolder(holder);
-        controller.setElements(add_elements(holder.getStreets(), holder.getStops(), holder.getLines()));
+        controller.setMapBase();
         controller.startTime(1);
-
-    }
-
-    public List<Drawable> add_elements(List<Street> streetList, List<Stop> stopList, List<Line> lineList) {
-        List<Drawable> elements = new ArrayList<>();
-
-        for (Street str : streetList) {
-            elements.add(new StreetGui(str.getId(),str.start(),str.end()));
-        }
-        for (Stop stop : stopList) {
-            elements.add(new StopGui(stop.getId(),stop.getCoordinate()));
-        }
-
-        return elements;
     }
 
     public static void main(String[] args) {
