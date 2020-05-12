@@ -5,8 +5,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 
 
@@ -18,8 +21,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class ControllerGui {
+
     @FXML
-    private AnchorPane content;
+    public AnchorPane content;
     @FXML
     private TextField setTime, changeTimeSpeed;
     @FXML
@@ -90,15 +94,21 @@ public class ControllerGui {
            content.layout();
         }
     }
+    
 
     public void setElements(List<Drawable> elements){
-        this.elements = elements;
-        for (Drawable drawable : elements) {
-            content.getChildren().addAll(drawable.getGUI());
-            if (drawable instanceof TimeUpdate) {
-               updates.add((TimeUpdate) drawable);
-            }
+        try {
+            this.elements = elements;
+            for (Drawable drawable : elements) {
+                content.getChildren().addAll(drawable.getGUI());
+                if (drawable instanceof TimeUpdate) {
+                    updates.add((TimeUpdate) drawable);
+                }
 
+            }
+        }
+        catch (NullPointerException e) {
+            System.out.println("Nullpointerexpcetion");
         }
     }
 

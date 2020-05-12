@@ -1,14 +1,25 @@
 package gui;
 
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Shape;
 import model.Coordinate;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Path {
+public class Path  {
     private List<Coordinate> path;
+    private Color color;
+    private List<Shape> gui = new ArrayList<>();
 
-    public Path(List<Coordinate> path) {
+    public Path(Color color, List<Coordinate> path) {
         this.path = path;
+        this.color = color;
+    }
+
+    public List<Coordinate> getPoints() {
+        return path;
     }
 
     public Coordinate getCoordinateDistance(double distance){
@@ -44,5 +55,14 @@ public class Path {
             size += getDistanceBetweenPoints(path.get(i), path.get(i+1));
         }
         return size;
+    }
+
+    public List<Shape> getGUI() {
+        for(int i =0; i < path.size()-1; i++) {
+            Line line = new Line(this.path.get(i).getX(),this.path.get(i).getY(),this.path.get(i+1).getX(),this.path.get(i+1).getY());
+            line.setStroke(Color.TRANSPARENT);
+            gui.add(line);
+        }
+        return gui;
     }
 }

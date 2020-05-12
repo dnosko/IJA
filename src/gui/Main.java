@@ -63,7 +63,7 @@ public class Main extends Application {
                 pathCoords.add(str.end());
             }
             pathCoords.add(StopsLine.get(StopsLine.size()-1).getCoordinate()); //last stop
-            elements.add(new Vehicle(line,1, new Path (pathCoords)));
+            elements.add(new Vehicle(line,1, new Path (line.getColor(),pathCoords)));
         }
 
         return elements;
