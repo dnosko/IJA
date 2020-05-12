@@ -1,4 +1,5 @@
 package gui;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -8,10 +9,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import model.*;
 
 
 import java.time.DateTimeException;
 import java.time.LocalTime;
+import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -27,6 +30,8 @@ public class ControllerGui {
 
     private List<Drawable> elements = new ArrayList<>();
     private List<TimeUpdate> updates = new ArrayList<>();
+
+    private DataHolder holder;
 
     private Timer timer;
     private LocalTime time = LocalTime.now();
@@ -92,7 +97,7 @@ public class ControllerGui {
     }
 
     public void setElements(List<Drawable> elements){
-        this.elements = elements;
+        this.elements.addAll(elements);
         for (Drawable drawable : elements) {
             content.getChildren().addAll(drawable.getGUI());
             if (drawable instanceof TimeUpdate) {
@@ -107,12 +112,55 @@ public class ControllerGui {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                time = time.plusSeconds(1);
-                for (TimeUpdate update : updates) {
-                    update.update(time);
-                }
-                showTime();
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        time = time.plusSeconds(1);
+                        for (TimeUpdate update : updates) {
+                            update.update(time);
+                        }
+                        showTime();
+                        activateOrDeactivateBuses();
+                    }
+                });
             }
         }, 0, (long)(1000/scale));
+    }
+
+    private void activateOrDeactivateBuses() {
+        List<Drawable> elements = new ArrayList<>();
+        for (Line line : this.holder.getLines()) {
+            if ( line.getBusesTimes().contains(time.get(ChronoField.MINUTE_OF_DAY)) && time.get(ChronoField.SECOND_OF_MINUTE) <= 1 ) {
+                List<Stop> StopsLine = line.getStops();
+                List<Coordinate> pathCoords = new ArrayList<>();
+
+                List<Street> StreetLine = line.getStreets();
+                pathCoords.add(StopsLine.get(0).getCoordinate()); //first stop
+                for (Street str : StreetLine) {
+                    // if its last street in Line, get only beginning of street
+                    if (str.equals(StreetLine.get(StreetLine.size() - 1))) {
+                        pathCoords.add(str.start());
+                        continue;
+                    }
+                    //if its first street in line get only end of street
+                    if (str.equals(StreetLine.get(0))) {
+                        pathCoords.add(str.end());
+                        continue;
+                    }
+                    pathCoords.add(str.start());
+                    pathCoords.add(str.end());
+                }
+                pathCoords.add(StopsLine.get(StopsLine.size() - 1).getCoordinate()); //last stop
+                elements.add(new Vehicle(line, 1, new Path(pathCoords)));
+            }
+        }
+
+        if ( ! elements.isEmpty() ) {
+            this.setElements(elements);
+        }
+    }
+
+    public void setHolder(DataHolder holder) {
+        this.holder = holder;
     }
 }

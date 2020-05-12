@@ -27,7 +27,7 @@ public class Main extends Application {
         DataHolder holder = new DataHolder("data/");
         ControllerGui controller = loader.getController();
 
-
+        controller.setHolder(holder);
         controller.setElements(add_elements(holder.getStreets(), holder.getStops(), holder.getLines()));
         controller.startTime(1);
 
@@ -41,29 +41,6 @@ public class Main extends Application {
         }
         for (Stop stop : stopList) {
             elements.add(new StopGui(stop.getId(),stop.getCoordinate()));
-        }
-        for (Line line : lineList) {
-            List<Stop> StopsLine = line.getStops();
-            List<Coordinate> pathCoords = new ArrayList<>();
-
-            List<Street> StreetLine = line.getStreets();
-            pathCoords.add(StopsLine.get(0).getCoordinate()); //first stop
-            for (Street str : StreetLine) {
-                // if its last street in Line, get only beggining of street
-                if (str.equals(StreetLine.get(StreetLine.size()-1))) {
-                    pathCoords.add(str.start());
-                    continue;
-                }
-                //if its first street in line get only end of street
-                if (str.equals(StreetLine.get(0))) {
-                    pathCoords.add(str.end());
-                    continue;
-                }
-                pathCoords.add(str.start());
-                pathCoords.add(str.end());
-            }
-            pathCoords.add(StopsLine.get(StopsLine.size()-1).getCoordinate()); //last stop
-            elements.add(new Vehicle(line,1, new Path (pathCoords)));
         }
 
         return elements;
