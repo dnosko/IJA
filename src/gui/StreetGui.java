@@ -2,7 +2,6 @@ package gui;
 
 import javafx.scene.shape.Shape;
 import javafx.scene.shape.Line;
-import javafx.scene.text.Text;
 import model.Coordinate;
 
 import java.util.Arrays;

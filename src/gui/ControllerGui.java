@@ -1,6 +1,7 @@
 package gui;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -177,7 +178,7 @@ public class ControllerGui {
         for ( Vehicle vehicle : this.busElements ) {
             if (vehicle.getDistance() > vehicle.getPath().getPathsize()) {
                 this.busElements.remove(vehicle);
-                content.getChildren().remove(vehicle.getGUI());
+                content.getChildren().remove(vehicle.getGUI().get(0));
             }
         }
     }
