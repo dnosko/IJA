@@ -171,7 +171,7 @@ public class ControllerGui {
 
         List<Vehicle> elements = new ArrayList<>();
 
-        for (Line line : this.holder.getLines()) {
+        for (model.Line line : this.holder.getLines()) {
             if ( line.getBusesTimes().contains(time.get(ChronoField.MINUTE_OF_DAY)) && time.get(ChronoField.SECOND_OF_MINUTE) <= 1 ) {
                 elements.add(new Vehicle(line, 1, new Path(createPathCoords(line))));
             }
@@ -183,7 +183,7 @@ public class ControllerGui {
         }
     }
 
-    public List<Coordinate> createPathCoords(Line line) {
+    public List<Coordinate> createPathCoords(model.Line line) {
         List<Stop> StopsLine = line.getStops();
         List<Coordinate> pathCoords = new ArrayList<>();
 
@@ -225,7 +225,7 @@ public class ControllerGui {
 
         List<Vehicle> elements = new ArrayList<>();
 
-        for (Line line : this.holder.getLines()) {
+        for (model.Line line : this.holder.getLines()) {
             for ( int busTime : line.getBusesTimes() ) {
                 if ( busTime >= time.get(ChronoField.MINUTE_OF_DAY) - line.getPathLength() / 60 && busTime <= time.get(ChronoField.MINUTE_OF_DAY) ) {
                     Vehicle vehicle = new Vehicle(line, 1, new Path(createPathCoords(line)));

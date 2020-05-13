@@ -10,12 +10,10 @@ import java.util.List;
 
 public class Path implements Drawable  {
     private List<Coordinate> path;
-    private Color color;
     private List<Shape> gui = new ArrayList<>();
 
-    public Path(Color color, List<Coordinate> path) {
+    public Path(List<Coordinate> path) {
         this.path = path;
-        this.color = color;
     }
 
     public List<Coordinate> getPoints() {
