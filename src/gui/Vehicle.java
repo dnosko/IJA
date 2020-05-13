@@ -21,6 +21,7 @@ public class Vehicle implements Drawable, TimeUpdate {
     private List<Stop> stops;
     private Color color;
     private Line line;
+    private Itinerar it;
 
     public Vehicle(Line line, double speed, Path path) {
         this.line = line;
@@ -33,8 +34,12 @@ public class Vehicle implements Drawable, TimeUpdate {
         gui.add(new Circle(this.position.getX(),this.position.getY(),8,color));
 
         gui.addAll(path.getGUI()); //add path
+        it = new Itinerar(this);
     }
 
+    public Itinerar getItinerar() {
+        return it;
+    }
 
     @Override
     public List<Shape> getGUI() {
@@ -61,6 +66,7 @@ public class Vehicle implements Drawable, TimeUpdate {
         Coordinate coords = path.getCoordinateDistance(distance);
         move(coords);
         position = coords;
+        it.updateDistance(distance);
     }
 
     public int getDistance() {
