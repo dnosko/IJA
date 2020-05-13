@@ -27,9 +27,7 @@ public class Vehicle implements Drawable, TimeUpdate {
     private Color color;
     private Line line;
     List<Drawable> lineList = new ArrayList<>();
-    @FXML
-    public AnchorPane anchor_lines;
-
+    private Itinerar itinerar;
 
     public Vehicle(Line line, double speed, Path path) {
         this.line = line;
@@ -43,16 +41,16 @@ public class Vehicle implements Drawable, TimeUpdate {
 
         gui.addAll(path.getGUI()); //add path
         //Creating the mouse event handler
-        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+        /*EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                System.out.println("Hello World");
                 System.out.println(path.getGUI().size());
                 try {
                     for (int i = 0; i < (path.getGUI().size()); i++) {
                         System.out.println(i);
                         gui.get(i).setStroke(color);
                     }
+                    itinerar.
                 }
                 catch (IndexOutOfBoundsException exception) {
                     System.out.println("INDEX OUT OF BOUNDS");
@@ -60,7 +58,7 @@ public class Vehicle implements Drawable, TimeUpdate {
             }
         };
         //Adding event Filter
-        gui.get(0).addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
+        gui.get(0).addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);*/
     }
 
 

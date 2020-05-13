@@ -6,11 +6,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ControllerGui">
     <right>
-        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="600.0" prefWidth="183.0" BorderPane.alignment="CENTER">
          <children>
             <TextArea fx:id="clock" layoutY="164.0" prefHeight="30.0" prefWidth="150.0" AnchorPane.rightAnchor="25.0">
                <font>
@@ -23,7 +24,7 @@
          </children></AnchorPane>
     </right>
     <center>
-        <ScrollPane onKeyPressed="#onZoo" onScroll="#onZoom" pannable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <ScrollPane onKeyPressed="#onZoo" onScroll="#onZoom" pannable="true" prefHeight="600.0" prefWidth="597.0" BorderPane.alignment="CENTER">
             <content>
                 <AnchorPane fx:id="content" minHeight="0.0" minWidth="0.0" onKeyPressed="#onZoo" onScroll="#onZoom" prefHeight="1000.0" prefWidth="1000.0">
                <children>
@@ -32,4 +33,7 @@
             </content>
         </ScrollPane>
     </center>
+   <left>
+      <Pane fx:id="canvas" prefHeight="600.0" prefWidth="130.0" BorderPane.alignment="CENTER" />
+   </left>
 </BorderPane>

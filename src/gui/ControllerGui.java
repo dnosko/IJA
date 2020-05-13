@@ -1,6 +1,7 @@
 package gui;
 
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -9,6 +10,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
@@ -25,6 +27,8 @@ public class ControllerGui {
     private TextField setTime, changeTimeSpeed;
     @FXML
     private TextArea clock;
+    @FXML
+    private Pane canvas;
 
     private List<Vehicle> busElements = new ArrayList<>();
 
@@ -138,12 +142,25 @@ public class ControllerGui {
     public void removeLines(MouseEvent event) {
         event.consume();
         if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
+            canvas.getChildren().clear();
             for (Drawable element : this.busElements) {
                 for (int i = 0; i < element.getGUI().size(); i++) {
                     Shape el = element.getGUI().get(i);
                     if (el.getTypeSelector().equals("Line")) {
                         el.setStroke(Color.TRANSPARENT);
                     }
+                }
+            }
+        }
+    }
+
+    public void removeLines() {
+        canvas.getChildren().clear();
+        for (Drawable element : this.busElements) {
+            for (int i = 0; i < element.getGUI().size(); i++) {
+                Shape el = element.getGUI().get(i);
+                if (el.getTypeSelector().equals("Line")) {
+                    el.setStroke(Color.TRANSPARENT);
                 }
             }
         }
@@ -230,6 +247,8 @@ public class ControllerGui {
                 if ( busTime >= time.get(ChronoField.MINUTE_OF_DAY) - line.getPathLength() / 60 && busTime <= time.get(ChronoField.MINUTE_OF_DAY) ) {
                     Vehicle vehicle = new Vehicle(line, 1, new Path(createPathCoords(line)));
                     elements.add(vehicle);
+                    showItinerar(vehicle);
+
                     for ( double i = time.get(ChronoField.MINUTE_OF_DAY) - (line.getPathLength() / 60) + (time.get(ChronoField.MINUTE_OF_DAY) - busTime) ; i < time.get(ChronoField.MINUTE_OF_DAY); i+=1.0/60.0 ) {
                         vehicle.update(time);
                     }
@@ -250,5 +269,31 @@ public class ControllerGui {
 
     public void setHolder(DataHolder holder) {
         this.holder = holder;
+    }
+
+    public void showItinerar(Vehicle vehicle) {
+        Itinerar it = new Itinerar(vehicle);
+        //Creating the mouse event handler
+        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                System.out.println(vehicle.getPath().getGUI().size());
+                try {
+                    removeLines();
+                    canvas =  it.createItinerar(canvas);
+                    canvas.setVisible(true);
+
+                    for (int i = 0; i < (vehicle.getPath().getGUI().size()); i++) {
+                        System.out.println(i);
+                        vehicle.getGUI().get(i).setStroke(vehicle.getLine().getColor());
+                    }
+                }
+                catch (IndexOutOfBoundsException exception) {
+                    System.out.println("INDEX OUT OF BOUNDS");
+                }
+            }
+        };
+        //Adding event Filter
+        vehicle.getGUI().get(0).addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
     }
 }
