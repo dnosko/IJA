@@ -40,7 +40,7 @@ public class ControllerGui {
             setTime.replaceSelection("Invalid time");
         }
         showTime();
-        this.deactivateBuses();
+        this.deactivateAllBuses();
         this.activateActiveBuses();
     }
 
@@ -209,6 +209,13 @@ public class ControllerGui {
 
         this.busElements.addAll(elements);
         this.setVehicleElements(elements);
+    }
+
+    private void deactivateAllBuses() {
+        for ( Vehicle vehicle : this.busElements ) {
+            content.getChildren().remove(vehicle.getGUI().get(0));
+        }
+        this.busElements.clear();
     }
 
     public void setHolder(DataHolder holder) {
