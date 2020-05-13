@@ -12,17 +12,17 @@ import model.Coordinate;
 import model.Line;
 import model.Stop;
 
-import java.awt.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Vehicle implements Drawable, TimeUpdate {
+
     private int distance = 0;
     private double speed = 1;
     private Coordinate position;
     private List<Shape> gui;
-    public Path path;
+    private Path path;
     private List<Stop> stops;
     private Color color;
     List<Drawable> lineList = new ArrayList<>();
@@ -84,11 +84,17 @@ public class Vehicle implements Drawable, TimeUpdate {
     @Override
     public void update(LocalTime time) {
         distance += speed;
-        if (distance > path.getPathsize())
-            return;
         Coordinate coords = path.getCoordinateDistance(distance);
         move(coords);
         position = coords;
+    }
+
+    public int getDistance() {
+        return this.distance;
+    }
+
+    public Path getPath() {
+        return this.path;
     }
 
 }

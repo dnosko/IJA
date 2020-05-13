@@ -35,6 +35,6 @@ public class Street {
     }
 
     public Coordinate end () {
-        return this.coordinates.get(coordinates.size()-1);
+        return this.coordinates.get(1);
     }
 }
