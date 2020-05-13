@@ -1,7 +1,7 @@
 package gui;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -9,8 +9,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import model.*;
-
-
 import java.time.DateTimeException;
 import java.time.LocalTime;
 import java.time.temporal.ChronoField;
@@ -42,6 +40,8 @@ public class ControllerGui {
             setTime.replaceSelection("Invalid time");
         }
         showTime();
+        this.deactivateBuses();
+        this.activateActiveBuses();
     }
 
     @FXML
@@ -124,47 +124,26 @@ public class ControllerGui {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        time = time.plusSeconds(1);
-                        for (Vehicle vehicle : busElements) {
-                            vehicle.update(time);
-                        }
-                        showTime();
-                        activateBuses();
-                        deactivateBuses();
+                Platform.runLater(() -> {
+                    time = time.plusSeconds(1);
+                    for (Vehicle vehicle : busElements) {
+                        vehicle.update(time);
                     }
+                    showTime();
+                    activateBuses();
+                    deactivateBuses();
                 });
             }
         }, 0, (long)(1000/scale));
     }
 
     private void activateBuses() {
+
         List<Vehicle> elements = new ArrayList<>();
+
         for (Line line : this.holder.getLines()) {
             if ( line.getBusesTimes().contains(time.get(ChronoField.MINUTE_OF_DAY)) && time.get(ChronoField.SECOND_OF_MINUTE) <= 1 ) {
-                List<Stop> StopsLine = line.getStops();
-                List<Coordinate> pathCoords = new ArrayList<>();
-
-                List<Street> StreetLine = line.getStreets();
-                pathCoords.add(StopsLine.get(0).getCoordinate()); //first stop
-                for (Street str : StreetLine) {
-                    // if its last street in Line, get only beginning of street
-                    if (str.equals(StreetLine.get(StreetLine.size() - 1))) {
-                        pathCoords.add(str.start());
-                        continue;
-                    }
-                    //if its first street in line get only end of street
-                    if (str.equals(StreetLine.get(0))) {
-                        pathCoords.add(str.end());
-                        continue;
-                    }
-                    pathCoords.add(str.start());
-                    pathCoords.add(str.end());
-                }
-                pathCoords.add(StopsLine.get(StopsLine.size() - 1).getCoordinate()); //last stop
-                elements.add(new Vehicle(line, 1, new Path(pathCoords)));
+                elements.add(new Vehicle(line, 1, new Path(createPathCoords(line))));
             }
         }
 
@@ -172,6 +151,31 @@ public class ControllerGui {
             this.busElements.addAll(elements);
             this.setVehicleElements(elements);
         }
+    }
+
+    public List<Coordinate> createPathCoords(Line line) {
+        List<Stop> StopsLine = line.getStops();
+        List<Coordinate> pathCoords = new ArrayList<>();
+
+        List<Street> StreetLine = line.getStreets();
+        pathCoords.add(StopsLine.get(0).getCoordinate()); //first stop
+        for (Street str : StreetLine) {
+            // if its last street in Line, get only beginning of street
+            if (str.equals(StreetLine.get(StreetLine.size() - 1))) {
+                pathCoords.add(str.start());
+                continue;
+            }
+            //if its first street in line get only end of street
+            if (str.equals(StreetLine.get(0))) {
+                pathCoords.add(str.end());
+                continue;
+            }
+            pathCoords.add(str.start());
+            pathCoords.add(str.end());
+        }
+        pathCoords.add(StopsLine.get(StopsLine.size() - 1).getCoordinate()); //last stop
+
+        return pathCoords;
     }
 
     private void deactivateBuses() {
@@ -185,6 +189,26 @@ public class ControllerGui {
         }
 
         this.busElements.removeAll(vehiclesToRemove);
+    }
+
+    public void activateActiveBuses () {
+
+        List<Vehicle> elements = new ArrayList<>();
+
+        for (Line line : this.holder.getLines()) {
+            for ( int busTime : line.getBusesTimes() ) {
+                if ( busTime >= time.get(ChronoField.MINUTE_OF_DAY) - line.getPathLength() / 60 && busTime <= time.get(ChronoField.MINUTE_OF_DAY) ) {
+                    Vehicle vehicle = new Vehicle(line, 1, new Path(createPathCoords(line)));
+                    elements.add(vehicle);
+                    for ( double i = time.get(ChronoField.MINUTE_OF_DAY) - (line.getPathLength() / 60) + (time.get(ChronoField.MINUTE_OF_DAY) - busTime) ; i < time.get(ChronoField.MINUTE_OF_DAY); i+=1.0/60.0 ) {
+                        vehicle.update(time);
+                    }
+                }
+            }
+        }
+
+        this.busElements.addAll(elements);
+        this.setVehicleElements(elements);
     }
 
     public void setHolder(DataHolder holder) {

@@ -7,7 +7,6 @@ import model.Coordinate;
 import model.Line;
 import model.Stop;
 
-import java.awt.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,11 +62,11 @@ public class Vehicle implements Drawable, TimeUpdate {
     }
 
     public int getDistance() {
-        return distance;
+        return this.distance;
     }
 
     public Path getPath() {
-        return path;
+        return this.path;
     }
 
 }
