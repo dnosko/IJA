@@ -25,12 +25,14 @@ public class Vehicle implements Drawable, TimeUpdate {
     private Path path;
     private List<Stop> stops;
     private Color color;
+    private Line line;
     List<Drawable> lineList = new ArrayList<>();
     @FXML
     public AnchorPane anchor_lines;
 
 
     public Vehicle(Line line, double speed, Path path) {
+        this.line = line;
         this.stops = line.getStops();
         this.position = this.stops.get(0).getCoordinate(); //first position
         this.speed = speed;
@@ -97,4 +99,7 @@ public class Vehicle implements Drawable, TimeUpdate {
         return this.path;
     }
 
+    public Line getLine() {
+        return line;
+    }
 }

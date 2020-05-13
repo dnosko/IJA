@@ -2,7 +2,6 @@ package gui;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -13,14 +12,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
-import javafx.scene.text.Text;
-import javafx.scene.transform.Scale;
 import model.*;
 import java.time.DateTimeException;
 import java.time.LocalTime;
 import java.util.*;
 import java.time.temporal.ChronoField;
-import java.util.*;
 
 public class ControllerGui {
     @FXML
@@ -142,32 +138,14 @@ public class ControllerGui {
     public void removeLines(MouseEvent event) {
         event.consume();
         if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
-            for (Drawable element : elements) {
-                if (element.getType().equals("Vehicle")) {
-                    for (int i = 0; i < element.getGUI().size(); i++) {
-                        Shape el = element.getGUI().get(i);
-                        if (el.getTypeSelector().equals("Line")) {
-                            el.setStroke(Color.TRANSPARENT);
-                        }
+            for (Drawable element : this.busElements) {
+                for (int i = 0; i < element.getGUI().size(); i++) {
+                    Shape el = element.getGUI().get(i);
+                    if (el.getTypeSelector().equals("Line")) {
+                        el.setStroke(Color.TRANSPARENT);
                     }
                 }
             }
-        }
-    }
-
-
-    public void setElements(List<Drawable> elements){
-        try {
-            this.elements = elements;
-            for (Drawable drawable : elements) {
-                content.getChildren().addAll(drawable.getGUI());
-                if (drawable instanceof TimeUpdate) {
-                    updates.add((TimeUpdate) drawable);
-                }
-            }
-        }
-        catch (NullPointerException e) {
-            System.out.println("Nullpointerexpcetion");
         }
     }
 

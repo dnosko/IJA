@@ -21,13 +21,13 @@ public class Itinerar {
     private Color color;
 
     public Itinerar(Vehicle vehicle){
-        this.name = this.createText(50,30,vehicle.get_line().getId(),15);
+        this.name = this.createText(50,30,vehicle.getLine().getId(),15);
         //this.name.setFont(Font.font("Fira Sans Thin",FontWeight.LIGHT,15));
 
-        this.liststop = vehicle.get_line().getStops();
-        this.no_stops = vehicle.get_line().getStops().size();
+        this.liststop = vehicle.getLine().getStops();
+        this.no_stops = vehicle.getLine().getStops().size();
 
-        this.color = vehicle.get_line().getColor();
+        this.color = vehicle.getLine().getColor();
     }
 
     private Line createLine() {
