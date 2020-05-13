@@ -142,15 +142,7 @@ public class ControllerGui {
     public void removeLines(MouseEvent event) {
         event.consume();
         if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
-            canvas.getChildren().clear();
-            for (Drawable element : this.busElements) {
-                for (int i = 0; i < element.getGUI().size(); i++) {
-                    Shape el = element.getGUI().get(i);
-                    if (el.getTypeSelector().equals("Line")) {
-                        el.setStroke(Color.TRANSPARENT);
-                    }
-                }
-            }
+            removeLines();
         }
     }
 

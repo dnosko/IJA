@@ -1,10 +1,5 @@
 package gui;
 
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
@@ -26,8 +21,6 @@ public class Vehicle implements Drawable, TimeUpdate {
     private List<Stop> stops;
     private Color color;
     private Line line;
-    List<Drawable> lineList = new ArrayList<>();
-    private Itinerar itinerar;
 
     public Vehicle(Line line, double speed, Path path) {
         this.line = line;
@@ -40,25 +33,6 @@ public class Vehicle implements Drawable, TimeUpdate {
         gui.add(new Circle(this.position.getX(),this.position.getY(),8,color));
 
         gui.addAll(path.getGUI()); //add path
-        //Creating the mouse event handler
-        /*EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                System.out.println(path.getGUI().size());
-                try {
-                    for (int i = 0; i < (path.getGUI().size()); i++) {
-                        System.out.println(i);
-                        gui.get(i).setStroke(color);
-                    }
-                    itinerar.
-                }
-                catch (IndexOutOfBoundsException exception) {
-                    System.out.println("INDEX OUT OF BOUNDS");
-                }
-            }
-        };
-        //Adding event Filter
-        gui.get(0).addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);*/
     }
 
 
