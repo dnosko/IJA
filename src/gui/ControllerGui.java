@@ -175,12 +175,16 @@ public class ControllerGui {
     }
 
     private void deactivateBuses() {
+        List<Vehicle> vehiclesToRemove = new ArrayList<>();
+
         for ( Vehicle vehicle : this.busElements ) {
             if (vehicle.getDistance() > vehicle.getPath().getPathsize()) {
-                this.busElements.remove(vehicle);
+                vehiclesToRemove.add(vehicle);
                 content.getChildren().remove(vehicle.getGUI().get(0));
             }
         }
+
+        this.busElements.removeAll(vehiclesToRemove);
     }
 
     public void setHolder(DataHolder holder) {
