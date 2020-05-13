@@ -1,6 +1,7 @@
 package gui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -12,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Scale;
 
 
 import java.time.DateTimeException;
@@ -19,7 +21,6 @@ import java.time.LocalTime;
 import java.util.*;
 
 public class ControllerGui {
-
     @FXML
     public AnchorPane content;
     @FXML
@@ -32,6 +33,7 @@ public class ControllerGui {
 
     private Timer timer;
     private LocalTime time = LocalTime.now();
+    private static int zoominXth = 0;
 
     @FXML
     /* sets time */
@@ -82,12 +84,23 @@ public class ControllerGui {
         if ( event.getEventType() == KeyEvent.KEY_PRESSED) {
             KeyCode code = event.getCode();
            if (code == KeyCode.ADD || code == KeyCode.UP) {
-                content.setScaleX(1.1 * content.getScaleX());
-                content.setScaleY(1.1 * content.getScaleY());
+               zoominXth++;
+               content.setScaleX(1.1 * content.getScaleX());
+               content.setScaleY(1.1 * content.getScaleY());
            }
            else if (code == KeyCode.SUBTRACT || code == KeyCode.DOWN) {
+               zoominXth--;
                content.setScaleX(0.9 * content.getScaleX());
                content.setScaleY(0.9 * content.getScaleY());
+           }
+           // move the object
+           if (zoominXth > 0) {
+               content.setTranslateX(100*zoominXth);
+               content.setTranslateY(100*zoominXth);
+            }
+           else {
+               content.setTranslateX(0);
+               content.setTranslateY(0);
            }
            content.layout();
         }
