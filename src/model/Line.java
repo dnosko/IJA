@@ -12,7 +12,7 @@ public class Line {
     private List<Stop> stops;
     private Color color;
     private List<Integer> busesTimes = new ArrayList<>(); // buses start times in minutes (schedule)
-    private double pathLength;
+    private int pathLength;
 
     public Line(String id, List<Stop> stops, List<Street> streets) {
         this.id = id;
@@ -20,15 +20,16 @@ public class Line {
         this.streets = streets;
         this.setColor();
 
-        this.pathLength = 0;
+        double pathLength = 0;
         for ( Street street : this.streets ) {
             double x1 = street.start().getX();
             double x2 = street.end().getX();
             double y1 = street.start().getY();
             double y2 = street.end().getY();
 
-            this.pathLength += Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
+            pathLength += Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
         }
+        this.pathLength = (int) pathLength;
     }
 
 
@@ -52,8 +53,8 @@ public class Line {
         return this.busesTimes;
     }
 
-    public double getPathLength() {
-        return pathLength;
+    public int getPathLength() {
+        return this.pathLength;
     }
 
     private void setColor() {
