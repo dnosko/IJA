@@ -31,7 +31,6 @@ public class Itinerar {
 
         this.liststop = vehicle.getLine().getStops();
         this.no_stops = vehicle.getLine().getStops().size();
-        System.out.println(vehicle.getDeparture());
         this.timesinsec.add((double)vehicle.getDeparture());
 
         this.color = vehicle.getLine().getColor();

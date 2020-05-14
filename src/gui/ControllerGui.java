@@ -269,18 +269,17 @@ public class ControllerGui {
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                System.out.println(vehicle.getPath().getGUI().size());
                 try {
                     removeLines();
                     canvas =  it.createItinerar(canvas);
                     canvas.setVisible(true);
 
-                    for (int i = 0; i < (vehicle.getPath().getGUI().size()-1); i++) {
+                    for (int i = 0; i < (vehicle.getPath().getGUI().size()); i++) {
                         vehicle.getGUI().get(i).setStroke(vehicle.getLine().getColor());
                     }
                 }
                 catch (IndexOutOfBoundsException exception) {
-                    System.out.println("INDEX OUT OF BOUNDS");
+                    //System.out.println("INDEX OUT OF BOUNDS");
                 }
             }
         };
