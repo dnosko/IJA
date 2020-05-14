@@ -8,6 +8,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import model.Coordinate;
 import model.Stop;
 
 import java.util.ArrayList;
@@ -83,18 +84,28 @@ public class Itinerar {
 
     private String convertSecondstoHH_MM(double seconds){
        int hour = (int)seconds/3600;
-       double minute = ((seconds/3600.0) - hour)* 60;
+       double minute = ((seconds/3600.00) - hour)* 60;
        if (minute < 10)
             return hour + ":0" + (int)(minute);
        else
-           return hour + ":" + (int)(minute);
+            return hour + ":" + (int)(minute);
     }
 
     private void getStopTime(){
         double size;
         for (int i = 0; i < liststop.size()-1;i++) {
-                Path stops = new Path(Arrays.asList(liststop.get(i).getCoordinate(),liststop.get(i+1).getCoordinate()));
-                size = stops.getDistanceBetweenPoints(stops.getPoint(0),stops.getPoint(1));
+                Coordinate a = liststop.get(i).getCoordinate();
+                Coordinate b = liststop.get(i+1).getCoordinate();
+                Path stops = new Path(Arrays.asList(a,b));
+
+                if (a.getX() == b.getX() || a.getY() == b.getY()) // points lie on the same line
+                    size = stops.getDistanceBetweenPoints(a,b);
+                else { // points hold right angle
+                    Coordinate c = new Coordinate(a.getX(),b.getY());
+                    size = stops.getDistanceBetweenPoints(a,c);
+                    size += stops.getDistanceBetweenPoints(c,b);
+                }
+
                 this.timesinsec.add(this.timesinsec.get(i) + size);
                 distanceBetweenStops.add(size);
         }
