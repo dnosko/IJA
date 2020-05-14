@@ -33,7 +33,6 @@ public class Itinerar {
         this.no_stops = vehicle.getLine().getStops().size();
         System.out.println(vehicle.getDeparture());
         this.timesinsec.add((double)vehicle.getDeparture());
-        getStopTime();
 
         this.color = vehicle.getLine().getColor();
         this.distance = (no_stops-1)*20;
@@ -61,6 +60,7 @@ public class Itinerar {
         it.setVisible(false);
         it.getChildren().add(name);
         it.getChildren().add(this.createLine());
+        getStopTime();
         for (int i =0; i < no_stops; i++) {
             Circle circle = new Circle(X,Y+i*20,2.5);
             circle.setFill(this.color);
@@ -94,10 +94,10 @@ public class Itinerar {
     private void getStopTime(){
         double size;
         for (int i = 0; i < liststop.size()-1;i++) {
-            Path stops = new Path(Arrays.asList(liststop.get(i).getCoordinate(),liststop.get(i+1).getCoordinate()));
-            size = stops.getDistanceBetweenPoints(stops.getPoint(0),stops.getPoint(1));
-            this.timesinsec.add(this.timesinsec.get(i) + size);
-            distanceBetweenStops.add(size);
+                Path stops = new Path(Arrays.asList(liststop.get(i).getCoordinate(),liststop.get(i+1).getCoordinate()));
+                size = stops.getDistanceBetweenPoints(stops.getPoint(0),stops.getPoint(1));
+                this.timesinsec.add(this.timesinsec.get(i) + size);
+                distanceBetweenStops.add(size);
         }
     }
 
