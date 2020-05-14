@@ -7,6 +7,7 @@ public class Street {
     private String id;
     private List<Coordinate> coordinates;
     private List<Stop> stops;
+    private int traffic = 0;
 
     public Street(String id, List<Coordinate> coordinates, List<Stop> stops) {
         this.id = id;
@@ -36,5 +37,13 @@ public class Street {
 
     public Coordinate end () {
         return this.coordinates.get(1);
+    }
+
+    public int getTraffic() {
+        return traffic;
+    }
+
+    public void setTraffic(int traffic) {
+        this.traffic = traffic;
     }
 }

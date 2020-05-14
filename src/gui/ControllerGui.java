@@ -30,7 +30,7 @@ public class ControllerGui {
     @FXML
     public AnchorPane content;
     @FXML
-    private TextField setTime, changeTimeSpeed;
+    private TextField setTime, changeTimeSpeed, TextFieldTraffic;
     @FXML
     private TextArea clock;
     @FXML
@@ -38,9 +38,13 @@ public class ControllerGui {
 
     private List<Vehicle> busElements = new ArrayList<>();
 
+    private List<StreetGui> streetElements = new ArrayList<>();
+
     private int longestPathLength = 0;
 
     private DataHolder holder;
+
+    private Street selectedStreet = null;
 
     private Timer timer;
     private LocalTime time = LocalTime.now();
@@ -58,13 +62,7 @@ public class ControllerGui {
         }
 
         showTime();
-        this.deactivateAllBuses();
-        this.activateActiveBuses(0);
-
-        /* Activate buses before midnight if time was set close after midnight and not all buses starting before midnight already finished */
-        if ( this.time.toSecondOfDay() - this.longestPathLength < 0) {
-            this.activateActiveBuses(this.time.toSecondOfDay());
-        }
+        this.resetBuses();
     }
 
     @FXML
@@ -77,6 +75,24 @@ public class ControllerGui {
         }
         catch (IllegalArgumentException e) {
             changeTimeSpeed.replaceSelection("Must be a positive number.");
+        }
+    }
+
+    @FXML
+    public void onTrafficSet() {
+        try {
+            int traffic = Integer.parseInt(changeTimeSpeed.getText());
+
+            if ( this.selectedStreet == null ) {
+                TextFieldTraffic.replaceSelection("Street not selected.");
+            }
+            else {
+                this.selectedStreet.setTraffic(traffic);
+                this.resetBuses();
+            }
+        }
+        catch (IllegalArgumentException e) {
+            TextFieldTraffic.replaceSelection("Must be a positive integer number.");
         }
     }
 
@@ -135,8 +151,10 @@ public class ControllerGui {
         List<Drawable> elements = new ArrayList<>();
 
         /* create street elements */
-        for (Street str : holder.getStreets()) {
-            elements.add(new StreetGui(str.getId(),str.start(),str.end()));
+        for (Street street : holder.getStreets()) {
+            StreetGui streetGui = new StreetGui(street.getId(),street.start(),street.end());
+            elements.add(streetGui);
+            this.streetElements.add(streetGui);
         }
 
         /* create stop elements */
@@ -158,6 +176,7 @@ public class ControllerGui {
         if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
             removeLines();
         }
+
     }
 
     public void removeLines() {
@@ -293,7 +312,7 @@ public class ControllerGui {
     }
 
     public void showItinerary(Vehicle vehicle) {
-        Itinerary it = vehicle.getItinerar();
+        Itinerary it = vehicle.getItinerary();
         //Creating the mouse event handler
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
@@ -314,5 +333,15 @@ public class ControllerGui {
         };
         //Adding event Filter
         vehicle.getGUI().get(0).addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
+    }
+
+    private void resetBuses() {
+        this.deactivateAllBuses();
+        this.activateActiveBuses(0);
+
+        /* Activate buses before midnight if time was set close after midnight and not all buses starting before midnight already finished */
+        if ( this.time.toSecondOfDay() - this.longestPathLength < 0) {
+            this.activateActiveBuses(this.time.toSecondOfDay());
+        }
     }
 }
