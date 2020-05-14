@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Itinerar {
+public class Itinerary {
     private final double X = 20;
     private final double Y = 60;
     private Text name;
@@ -27,7 +27,7 @@ public class Itinerar {
     private List<Double> distanceBetweenStops = new ArrayList<>();
     private List<Double> timesinsec = new ArrayList<>();
 
-    public Itinerar(Vehicle vehicle){
+    public Itinerary(Vehicle vehicle){
         this.name = this.createText(50,30,vehicle.getLine().getId(),15);
 
         this.liststop = vehicle.getLine().getStops();

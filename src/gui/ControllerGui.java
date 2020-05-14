@@ -1,3 +1,9 @@
+/*
+TODO
+ bugs
+    ked bus pride do ciela a zaroven je selected, neprebehne odstranenie vsetkych koponent (farby cesty ostanu bugnute uz navzdy)
+ */
+
 package gui;
 
 import javafx.application.Platform;
@@ -12,7 +18,6 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 import model.*;
 import java.time.DateTimeException;
@@ -51,8 +56,8 @@ public class ControllerGui {
             setTime.clear();
             setTime.replaceSelection("Invalid time");
         }
-        showTime();
 
+        showTime();
         this.deactivateAllBuses();
         this.activateActiveBuses(0);
 
@@ -176,7 +181,7 @@ public class ControllerGui {
                     time = time.plusSeconds(1);
                     for (Vehicle vehicle : busElements) {
                         vehicle.update(time);
-                        showItinerar(vehicle);
+                        showItinerary(vehicle);
                     }
                     showTime();
                     activateBuses();
@@ -287,8 +292,8 @@ public class ControllerGui {
         this.holder = holder;
     }
 
-    public void showItinerar(Vehicle vehicle) {
-        Itinerar it = vehicle.getItinerar();
+    public void showItinerary(Vehicle vehicle) {
+        Itinerary it = vehicle.getItinerar();
         //Creating the mouse event handler
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override

@@ -21,7 +21,7 @@ public class Vehicle implements Drawable, TimeUpdate {
     private List<Stop> stops;
     private Color color;
     private Line line;
-    private Itinerar it;
+    private Itinerary it;
     private int departure;
 
     public Vehicle(Line line, double speed, Path path, int departure) {
@@ -36,10 +36,10 @@ public class Vehicle implements Drawable, TimeUpdate {
         gui.add(new Circle(this.position.getX(),this.position.getY(),8,color));
 
         gui.addAll(path.getGUI()); //add path
-        it = new Itinerar(this);
+        it = new Itinerary(this);
     }
 
-    public Itinerar getItinerar() {
+    public Itinerary getItinerar() {
         return it;
     }
 
