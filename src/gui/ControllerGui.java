@@ -17,7 +17,6 @@ import javafx.scene.shape.Shape;
 import model.*;
 import java.time.DateTimeException;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.time.temporal.ChronoField;
 
@@ -183,7 +182,7 @@ public class ControllerGui {
         List<Vehicle> elements = new ArrayList<>();
 
         for (model.Line line : this.holder.getLines()) {
-            if ( line.getBusesTimes().contains(time.get(ChronoField.MINUTE_OF_DAY)) && time.get(ChronoField.SECOND_OF_MINUTE) <= 1 ) {
+            if ( line.getBusesTimes().contains(time.get(ChronoField.MINUTE_OF_DAY)) && time.get(ChronoField.SECOND_OF_MINUTE) == 0 ) {
                 elements.add(new Vehicle(line, 1, new Path(createPathCoords(line)),time.toSecondOfDay()));
             }
         }
@@ -238,10 +237,10 @@ public class ControllerGui {
 
         for (model.Line line : this.holder.getLines()) {
             for ( int busTime : line.getBusesTimes() ) {
-                if ( busTime >= time.get(ChronoField.MINUTE_OF_DAY) - line.getPathLength() / 60 && busTime <= time.get(ChronoField.MINUTE_OF_DAY) ) {
-                    Vehicle vehicle = new Vehicle(line, 1, new Path(createPathCoords(line)),time.toSecondOfDay());
+                if ( busTime * 60 > this.time.toSecondOfDay() - line.getPathLength() && busTime * 60 < this.time.toSecondOfDay() ) {
+                    Vehicle vehicle = new Vehicle(line, 1, new Path(createPathCoords(line)), time.toSecondOfDay());
                     elements.add(vehicle);
-                    for ( double i = time.get(ChronoField.MINUTE_OF_DAY) - (line.getPathLength() / 60) + (time.get(ChronoField.MINUTE_OF_DAY) - busTime) ; i < time.get(ChronoField.MINUTE_OF_DAY); i+=1.0/60.0 ) {
+                    for ( int i = busTime * 60 ; i <= this.time.toSecondOfDay(); i++ ) {
                         vehicle.update(time);
                     }
                     vehicle.updateDeparture();
