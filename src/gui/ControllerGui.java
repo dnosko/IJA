@@ -17,6 +17,7 @@ import javafx.scene.shape.Shape;
 import model.*;
 import java.time.DateTimeException;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.time.temporal.ChronoField;
 
@@ -69,6 +70,7 @@ public class ControllerGui {
     @FXML
     public void showTime(){
         clock.clear();
+        time = time.of(time.getHour(),time.getMinute(),time.getSecond());
         clock.setText(time.toString());
     }
 
