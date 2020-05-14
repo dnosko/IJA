@@ -167,6 +167,7 @@ public class ControllerGui {
                     time = time.plusSeconds(1);
                     for (Vehicle vehicle : busElements) {
                         vehicle.update(time);
+                        showItinerar(vehicle);
                     }
                     showTime();
                     activateBuses();
@@ -239,7 +240,6 @@ public class ControllerGui {
                 if ( busTime >= time.get(ChronoField.MINUTE_OF_DAY) - line.getPathLength() / 60 && busTime <= time.get(ChronoField.MINUTE_OF_DAY) ) {
                     Vehicle vehicle = new Vehicle(line, 1, new Path(createPathCoords(line)));
                     elements.add(vehicle);
-                    showItinerar(vehicle);
                     for ( double i = time.get(ChronoField.MINUTE_OF_DAY) - (line.getPathLength() / 60) + (time.get(ChronoField.MINUTE_OF_DAY) - busTime) ; i < time.get(ChronoField.MINUTE_OF_DAY); i+=1.0/60.0 ) {
                         vehicle.update(time);
                     }
