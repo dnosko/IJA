@@ -70,8 +70,7 @@ public class ControllerGui {
     @FXML
     public void showTime(){
         clock.clear();
-        time = time.of(time.getHour(),time.getMinute(),time.getSecond());
-        clock.setText(time.toString());
+        clock.setText(LocalTime.of(time.getHour(),time.getMinute(),time.getSecond()).toString());
     }
 
     @FXML
