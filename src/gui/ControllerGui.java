@@ -17,7 +17,6 @@ import javafx.scene.shape.Shape;
 import model.*;
 import java.time.DateTimeException;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.time.temporal.ChronoField;
 
@@ -183,7 +182,7 @@ public class ControllerGui {
         List<Vehicle> elements = new ArrayList<>();
 
         for (model.Line line : this.holder.getLines()) {
-            if ( line.getBusesTimes().contains(time.get(ChronoField.MINUTE_OF_DAY)) && time.get(ChronoField.SECOND_OF_MINUTE) <= 1 ) {
+            if ( line.getBusesTimes().contains(time.get(ChronoField.MINUTE_OF_DAY)) && time.get(ChronoField.SECOND_OF_MINUTE) == 0 ) {
                 elements.add(new Vehicle(line, 1, new Path(createPathCoords(line)),time.toSecondOfDay()));
             }
         }
