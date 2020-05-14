@@ -21,9 +21,9 @@ public class Itinerar {
     private int no_stops;
     private List<Stop> liststop;
     private Color color;
-    private double distance, actual_position, scale;
+    private double distance, actual_position, scale, pathsize;
     private Circle actual_pos;
-    private List<Text> textList;
+    private List<Double> distanceBetweenStops = new ArrayList<>();
     private List<Double> timesinsec = new ArrayList<>();
 
     public Itinerar(Vehicle vehicle){
@@ -31,15 +31,15 @@ public class Itinerar {
 
         this.liststop = vehicle.getLine().getStops();
         this.no_stops = vehicle.getLine().getStops().size();
-
+        System.out.println(vehicle.getDeparture());
         this.timesinsec.add((double)vehicle.getDeparture());
         getStopTime();
-        //textList.add(createText(X+70, Y,this.convertSecondstoHH_MM(timesinsec.get(0)),11));
 
         this.color = vehicle.getLine().getColor();
         this.distance = (no_stops-1)*20;
-        this.scale = distance/vehicle.getLine().getPathLength();
-        this.actual_position =  Y+ vehicle.getDistance()/scale;
+        this.pathsize = vehicle.getLine().getPathLength();
+        this.scale = distance/pathsize; // scale itinerar length to path of the line 1:1
+        this.actual_position =  Y;
     }
 
     private Line createLine() {
@@ -79,7 +79,7 @@ public class Itinerar {
     }
 
     public void updateDistance(double distance){
-        this.actual_position = Y + distance*scale;
+        this.actual_position = Y + (distance*scale);
     }
 
     private String convertSecondstoHH_MM(double seconds){
@@ -95,7 +95,12 @@ public class Itinerar {
             Path stops = new Path(Arrays.asList(liststop.get(i).getCoordinate(),liststop.get(i+1).getCoordinate()));
             size = stops.getDistanceBetweenPoints(stops.getPoint(0),stops.getPoint(1));
             this.timesinsec.add(this.timesinsec.get(i) + size);
+            distanceBetweenStops.add(size);
         }
+    }
+
+    public void updateDeparture(double time) {
+        this.timesinsec.set(0,time);
     }
 
 

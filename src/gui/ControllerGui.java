@@ -238,11 +238,12 @@ public class ControllerGui {
         for (model.Line line : this.holder.getLines()) {
             for ( int busTime : line.getBusesTimes() ) {
                 if ( busTime >= time.get(ChronoField.MINUTE_OF_DAY) - line.getPathLength() / 60 && busTime <= time.get(ChronoField.MINUTE_OF_DAY) ) {
-                    Vehicle vehicle = new Vehicle(line, 1, new Path(createPathCoords(line)),0);
+                    Vehicle vehicle = new Vehicle(line, 1, new Path(createPathCoords(line)),time.toSecondOfDay());
                     elements.add(vehicle);
                     for ( double i = time.get(ChronoField.MINUTE_OF_DAY) - (line.getPathLength() / 60) + (time.get(ChronoField.MINUTE_OF_DAY) - busTime) ; i < time.get(ChronoField.MINUTE_OF_DAY); i+=1.0/60.0 ) {
                         vehicle.update(time);
                     }
+                    vehicle.updateDeparture();
                 }
             }
         }
@@ -274,8 +275,7 @@ public class ControllerGui {
                     canvas =  it.createItinerar(canvas);
                     canvas.setVisible(true);
 
-                    for (int i = 0; i < (vehicle.getPath().getGUI().size()); i++) {
-                        System.out.println(i);
+                    for (int i = 0; i < (vehicle.getPath().getGUI().size()-1); i++) {
                         vehicle.getGUI().get(i).setStroke(vehicle.getLine().getColor());
                     }
                 }
