@@ -21,6 +21,7 @@ import java.util.*;
 import java.time.temporal.ChronoField;
 
 public class ControllerGui {
+
     @FXML
     public AnchorPane content;
     @FXML
@@ -31,6 +32,8 @@ public class ControllerGui {
     private Pane canvas;
 
     private List<Vehicle> busElements = new ArrayList<>();
+
+    private int longestPathLength = 0;
 
     private DataHolder holder;
 
@@ -49,8 +52,14 @@ public class ControllerGui {
             setTime.replaceSelection("Invalid time");
         }
         showTime();
+
         this.deactivateAllBuses();
-        this.activateActiveBuses();
+        this.activateActiveBuses(0);
+
+        /* Activate buses before midnight if time was set close after midnight and not all buses starting before midnight already finished */
+        if ( this.time.toSecondOfDay() - this.longestPathLength < 0) {
+            this.activateActiveBuses(this.time.toSecondOfDay());
+        }
     }
 
     @FXML
@@ -175,6 +184,12 @@ public class ControllerGui {
                 });
             }
         }, 0, (long)(1000/scale));
+
+        for ( model.Line line : holder.getLines() ) {
+            if ( this.longestPathLength < line.getPathLength() ) {
+                this.longestPathLength = line.getPathLength();
+            }
+        }
     }
 
     private void activateBuses() {
@@ -183,6 +198,7 @@ public class ControllerGui {
 
         for (model.Line line : this.holder.getLines()) {
             if ( line.getBusesTimes().contains(time.get(ChronoField.MINUTE_OF_DAY)) && time.get(ChronoField.SECOND_OF_MINUTE) == 0 ) {
+                /* bus is starting right now */
                 elements.add(new Vehicle(line, 1, new Path(createPathCoords(line)),time.toSecondOfDay()));
             }
         }
@@ -223,6 +239,7 @@ public class ControllerGui {
 
         for ( Vehicle vehicle : this.busElements ) {
             if (vehicle.getDistance() > vehicle.getPath().getPathsize()) {
+                /* bus finished */
                 vehiclesToRemove.add(vehicle);
                 content.getChildren().remove(vehicle.getGUI().get(0));
             }
@@ -231,18 +248,25 @@ public class ControllerGui {
         this.busElements.removeAll(vehiclesToRemove);
     }
 
-    public void activateActiveBuses () {
+    public void activateActiveBuses (int offset) {
 
+        final int SECOND_BEFORE_MIDNIGHT = 86399;
         List<Vehicle> elements = new ArrayList<>();
 
-        for (model.Line line : this.holder.getLines()) {
+        for ( model.Line line : this.holder.getLines() ) {
             for ( int busTime : line.getBusesTimes() ) {
-                if ( busTime * 60 > this.time.toSecondOfDay() - line.getPathLength() && busTime * 60 < this.time.toSecondOfDay() ) {
+                if ( busTime * 60 > (offset == 0 ? this.time.toSecondOfDay() : SECOND_BEFORE_MIDNIGHT) - line.getPathLength() + offset && busTime * 60 < (offset == 0 ? this.time.toSecondOfDay() : SECOND_BEFORE_MIDNIGHT) ) {
+                    /* bus is active on road right now */
+
+                    // create new bus and initialize his position as his starting position
                     Vehicle vehicle = new Vehicle(line, 1, new Path(createPathCoords(line)), time.toSecondOfDay());
                     elements.add(vehicle);
-                    for ( int i = busTime * 60 ; i <= this.time.toSecondOfDay(); i++ ) {
+
+                    for ( int i = busTime * 60 ; i <= (offset == 0 ? this.time.toSecondOfDay() : SECOND_BEFORE_MIDNIGHT + offset); i++ ) {
+                        /* catch up bus position from his starting position to actual time position */
                         vehicle.update(time);
                     }
+
                     vehicle.updateDeparture();
                 }
             }
