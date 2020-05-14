@@ -85,8 +85,10 @@ public class Itinerar {
     private String convertSecondstoHH_MM(double seconds){
        int hour = (int)seconds/3600;
        double minute = ((seconds/3600.0) - hour)* 60;
-
-       return hour + ":" + (int)(minute);
+       if (minute < 10)
+            return hour + ":0" + (int)(minute);
+       else
+           return hour + ":" + (int)(minute);
     }
 
     private void getStopTime(){

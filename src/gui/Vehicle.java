@@ -86,7 +86,6 @@ public class Vehicle implements Drawable, TimeUpdate {
     public int getDeparture() {
         return this.departure;
     }
-
     public void updateDeparture() {
         this.departure = this.departure-distance;
         it.updateDeparture(this.departure);
