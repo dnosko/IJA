@@ -56,7 +56,7 @@ public class Itinerary {
         return text;
     }
 
-    public Pane createItinerar(Pane it){
+    public Pane createItinerary(Pane it){
         it.setVisible(false);
         it.getChildren().add(name);
         it.getChildren().add(this.createLine());

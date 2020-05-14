@@ -6,6 +6,7 @@ import javafx.scene.shape.Line;
 import model.Coordinate;
 import javafx.scene.input.MouseEvent;
 import javafx.event.EventHandler;
+import model.Street;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,21 +15,14 @@ public class StreetGui implements Drawable {
     private String name;
     private Coordinate start;
     private Coordinate end;
-    private EventHandler<MouseEvent> eventHandler;
+    private Street street;
 
-    public StreetGui(String name, Coordinate start, Coordinate end){
+    public StreetGui(String name, Coordinate start, Coordinate end, Street street){
         this.name = name;
         this.start = start;
         this.end = end;
-
-        this.eventHandler = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                System.out.println("Hello World");
-            }
-        };
-
-        this.getGUI().get(0).addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
+        this.street = street;
+        street.setStreetGui(this);
     }
 
     @Override
@@ -43,5 +37,9 @@ public class StreetGui implements Drawable {
     @Override
     public String getType() {
         return "Street";
+    }
+
+    public Street getStreet() {
+        return street;
     }
 }

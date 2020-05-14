@@ -152,7 +152,7 @@ public class ControllerGui {
 
         /* create street elements */
         for (Street street : holder.getStreets()) {
-            StreetGui streetGui = new StreetGui(street.getId(),street.start(),street.end());
+            StreetGui streetGui = new StreetGui(street.getId(),street.start(),street.end(), street);
             elements.add(streetGui);
             this.streetElements.add(streetGui);
         }
@@ -319,7 +319,7 @@ public class ControllerGui {
             public void handle(MouseEvent e) {
                 try {
                     removeLines();
-                    canvas =  it.createItinerar(canvas);
+                    canvas =  it.createItinerary(canvas);
                     canvas.setVisible(true);
 
                     for (int i = 0; i < (vehicle.getPath().getGUI().size()); i++) {
