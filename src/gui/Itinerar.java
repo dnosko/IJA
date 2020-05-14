@@ -10,6 +10,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import model.Stop;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Itinerar {
@@ -20,13 +22,19 @@ public class Itinerar {
     private List<Stop> liststop;
     private Color color;
     private double distance, actual_position, scale;
-    Circle actual_pos;
+    private Circle actual_pos;
+    private List<Text> textList;
+    private List<Double> timesinsec = new ArrayList<>();
 
     public Itinerar(Vehicle vehicle){
         this.name = this.createText(50,30,vehicle.getLine().getId(),15);
 
         this.liststop = vehicle.getLine().getStops();
         this.no_stops = vehicle.getLine().getStops().size();
+
+        this.timesinsec.add((double)vehicle.getDeparture());
+        getStopTime();
+        //textList.add(createText(X+70, Y,this.convertSecondstoHH_MM(timesinsec.get(0)),11));
 
         this.color = vehicle.getLine().getColor();
         this.distance = (no_stops-1)*20;
@@ -57,7 +65,7 @@ public class Itinerar {
             Circle circle = new Circle(X,Y+i*20,2.5);
             circle.setFill(this.color);
             Text stop_name = createText(X+20,Y+i*20,liststop.get(i).getId(),11);
-            Text stop_time = createText(X+70, Y+i*20,"11:11",11);
+            Text stop_time = createText(X+70, Y+i*20,this.convertSecondstoHH_MM(timesinsec.get(i)),11);
             it.getChildren().addAll(stop_name,stop_time,circle);
         }
         actual_pos = new Circle(X,this.actual_position,2.8);
@@ -72,8 +80,24 @@ public class Itinerar {
 
     public void updateDistance(double distance){
         this.actual_position = Y + distance*scale;
-        //shape.setTranslateY(coordinates.getY() - position.getY() + shape.getTranslateY());
-        //this.actual_pos.setTranslateY();
     }
+
+    private String convertSecondstoHH_MM(double seconds){
+       int hour = (int)seconds/3600;
+       double minute = ((seconds/3600.0) - hour)* 60;
+
+       return hour + ":" + (int)(minute);
+    }
+
+    private void getStopTime(){
+        double size;
+        for (int i = 0; i < liststop.size()-1;i++) {
+            Path stops = new Path(Arrays.asList(liststop.get(i).getCoordinate(),liststop.get(i+1).getCoordinate()));
+            size = stops.getDistanceBetweenPoints(stops.getPoint(0),stops.getPoint(1));
+            this.timesinsec.add(this.timesinsec.get(i) + size);
+        }
+    }
+
+
 
 }

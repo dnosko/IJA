@@ -22,8 +22,10 @@ public class Vehicle implements Drawable, TimeUpdate {
     private Color color;
     private Line line;
     private Itinerar it;
+    private int departure;
 
-    public Vehicle(Line line, double speed, Path path) {
+    public Vehicle(Line line, double speed, Path path, int departure) {
+        this.departure = departure;
         this.line = line;
         this.stops = line.getStops();
         this.position = this.stops.get(0).getCoordinate(); //first position
@@ -79,5 +81,9 @@ public class Vehicle implements Drawable, TimeUpdate {
 
     public Line getLine() {
         return line;
+    }
+
+    public int getDeparture() {
+        return this.departure;
     }
 }

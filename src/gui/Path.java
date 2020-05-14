@@ -16,8 +16,8 @@ public class Path implements Drawable  {
         this.path = path;
     }
 
-    public List<Coordinate> getPoints() {
-        return path;
+    public Coordinate getPoint(int nth) {
+        return path.get(nth);
     }
 
     public Coordinate getCoordinateDistance(double distance){
@@ -43,7 +43,7 @@ public class Path implements Drawable  {
                 a.getY() + (b.getY()- a.getY())* distance_driven);
     }
 
-    private double getDistanceBetweenPoints(Coordinate a, Coordinate b){
+    public double getDistanceBetweenPoints(Coordinate a, Coordinate b){
         return Math.sqrt(Math.pow(a.getX()-b.getX(),2) + Math.pow(a.getY() - b.getY(),2));
     }
 
