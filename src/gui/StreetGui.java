@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class StreetGui implements Drawable {
-    public String name;
+    private String name;
     private Coordinate start;
     private Coordinate end;
     private Street street;
@@ -26,10 +26,15 @@ public class StreetGui implements Drawable {
         this.end = end;
         this.street = street;
         street.setStreetGui(this);
-        this.line = new Line(this.start.getX(),this.start.getY(),this.end.getX(),this.end.getY());
+        this.line = setLine();
+
+    }
+
+    private Line setLine() {
+        Line line = new Line(this.start.getX(),this.start.getY(),this.end.getX(),this.end.getY());
         line.setStrokeWidth(7);
         line.setStroke(Color.SILVER);
-
+        return line;
     }
 
     @Override

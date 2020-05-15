@@ -22,12 +22,11 @@ public class Itinerary {
     private int no_stops;
     private List<Stop> liststop;
     private Color color;
-    private double distance, actual_position, scale, pathsize;
+    private double distance, actual_position, drivenDistanceFromOneStopToAnother;
     private Circle actual_pos;
     private List<Double> distanceBetweenStops = new ArrayList<>();
     private List<Double> timesinsec = new ArrayList<>();
     private model.Line line;
-    private double drivenDistanceFromOneStopToAnother;
 
     public Itinerary(Vehicle vehicle){
         this.name = this.createText(50,30,vehicle.getLine().getId(),15);
@@ -39,8 +38,6 @@ public class Itinerary {
 
         this.color = vehicle.getLine().getColor();
         this.distance = (no_stops-1)*20;
-        this.pathsize = vehicle.getLine().getPathLength();
-        this.scale = distance/pathsize; // scale itinerar length to path of the line 1:1
         this.actual_position =  Y;
     }
 
@@ -59,20 +56,23 @@ public class Itinerary {
         return text;
     }
 
+    private Circle createCircle(double X, double Y, double radius, Color fill) {
+        Circle circle = new Circle(X,Y,radius);
+        actual_pos.setStroke(this.color);
+        circle.setFill(fill);
+        return circle;
+    }
+
     public Pane createItinerary(Pane it){
         it.setVisible(false);
-        it.getChildren().add(name);
-        it.getChildren().add(this.createLine());
+        it.getChildren().addAll(name,this.createLine());
         for (int i =0; i < no_stops; i++) {
-            Circle circle = new Circle(X,Y+i*20,2.5);
-            circle.setFill(this.color);
+            Circle stop = createCircle(X,Y+i*20,2.5, this.color);
             Text stop_name = createText(X+20,Y+i*20,liststop.get(i).getId(),11);
             Text stop_time = createText(X+70, Y+i*20,this.convertSecondstoHH_MM(timesinsec.get(i)),11);
-            it.getChildren().addAll(stop_name,stop_time,circle);
+            it.getChildren().addAll(stop_name,stop_time,stop);
         }
-        actual_pos = new Circle(X,this.actual_position,2.8);
-        actual_pos.setStroke(color);
-        actual_pos.setFill(Color.WHITE);
+        actual_pos = createCircle(X,this.actual_position,2.8,Color.WHITE);
         it.getChildren().add(actual_pos);
 
         it.setOpacity(100);
@@ -124,7 +124,7 @@ public class Itinerary {
                 stopDistance += distanceBetweenStops.get(i);
                 i++;
             }
-            return i - 1; 
+            return i - 1;
         }
         catch (IndexOutOfBoundsException e) {
             return 0;
