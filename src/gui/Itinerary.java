@@ -58,7 +58,7 @@ public class Itinerary {
 
     private Circle createCircle(double X, double Y, double radius, Color fill) {
         Circle circle = new Circle(X,Y,radius);
-        actual_pos.setStroke(this.color);
+        circle.setStroke(this.color);
         circle.setFill(fill);
         return circle;
     }
