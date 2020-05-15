@@ -192,7 +192,12 @@ public class ControllerGui {
 
     private void unsetSelectedStreet() {
         try {
-            selectedStreet.streetGui.getGUI().get(0).setStroke(Color.GREY);
+            if ( this.selectedStreet.getTraffic() == 0 ) {
+                selectedStreet.streetGui.getGUI().get(0).setStroke(Color.SILVER);
+            }
+            else {
+                selectedStreet.streetGui.getGUI().get(0).setStroke(Color.RED);
+            }
             selectedStreet = null;
         }
         catch (NullPointerException e) {}
