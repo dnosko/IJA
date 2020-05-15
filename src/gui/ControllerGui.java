@@ -1,8 +1,3 @@
-/*
-TODO
- bugs
-    ked bus pride do ciela a zaroven je selected, neprebehne odstranenie vsetkych koponent (farby cesty ostanu bugnute uz navzdy)
- */
 
 package gui;
 
@@ -30,7 +25,7 @@ public class ControllerGui {
     @FXML
     public AnchorPane content;
     @FXML
-    private TextField setTime, changeTimeSpeed;
+    private TextField setTime, changeTimeSpeed, TextFieldTraffic;
     @FXML
     private TextArea clock;
     @FXML
@@ -38,9 +33,14 @@ public class ControllerGui {
 
     private List<Vehicle> busElements = new ArrayList<>();
 
+    private List<StreetGui> streetElements = new ArrayList<>();
+
     private int longestPathLength = 0;
 
     private DataHolder holder;
+
+    public Street selectedStreet = null;
+    public StreetGui selStreet;
 
     private Timer timer;
     private LocalTime time = LocalTime.now();
@@ -58,13 +58,7 @@ public class ControllerGui {
         }
 
         showTime();
-        this.deactivateAllBuses();
-        this.activateActiveBuses(0);
-
-        /* Activate buses before midnight if time was set close after midnight and not all buses starting before midnight already finished */
-        if ( this.time.toSecondOfDay() - this.longestPathLength < 0) {
-            this.activateActiveBuses(this.time.toSecondOfDay());
-        }
+        this.resetBuses();
     }
 
     @FXML
@@ -79,6 +73,46 @@ public class ControllerGui {
             changeTimeSpeed.replaceSelection("Must be a positive number.");
         }
     }
+
+    @FXML
+    public void onTrafficSet() {
+        try {
+            int traffic = Integer.parseInt(TextFieldTraffic.getText());
+
+            if ( this.selectedStreet == null ) {
+                TextFieldTraffic.replaceSelection("Street not selected.");
+            }
+            else {
+                this.selectedStreet.setTraffic(traffic);
+                this.resetBuses();
+            }
+        }
+        catch (IllegalArgumentException e) {
+            TextFieldTraffic.replaceSelection("Must be a positive integer number.");
+        }
+    }
+
+    private void setSelectedStreet(StreetGui street) {
+        //Creating the mouse event handler
+        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                try {
+                    removeLines();
+                    selectedStreet = street.getStreet();
+                    street.getGUI().get(0).setStroke(Color.GOLD);
+                }
+                catch (IndexOutOfBoundsException exception) {
+                    System.out.println("INDEX OUT OF BOUNDS");
+                }
+            }
+        };
+        //Adding event Filter
+        street.getGUI().get(0).addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
+    }
+
+
+
 
     @FXML
     public void showTime(){
@@ -135,8 +169,11 @@ public class ControllerGui {
         List<Drawable> elements = new ArrayList<>();
 
         /* create street elements */
-        for (Street str : holder.getStreets()) {
-            elements.add(new StreetGui(str.getId(),str.start(),str.end()));
+        for (Street street : holder.getStreets()) {
+            StreetGui streetGui = new StreetGui(street.getId(),street.start(),street.end(), street);
+            setSelectedStreet(streetGui);
+            elements.add(streetGui);
+            this.streetElements.add(streetGui);
         }
 
         /* create stop elements */
@@ -152,12 +189,28 @@ public class ControllerGui {
             content.getChildren().addAll(drawable.getGUI());
         }
     }
+
+    private void unsetSelectedStreet() {
+        try {
+            if ( this.selectedStreet.getTraffic() == 0 ) {
+                selectedStreet.streetGui.getGUI().get(0).setStroke(Color.SILVER);
+            }
+            else {
+                selectedStreet.streetGui.getGUI().get(0).setStroke(Color.RED);
+            }
+            selectedStreet = null;
+        }
+        catch (NullPointerException e) {}
+    }
+
     
     public void removeLines(MouseEvent event) {
         event.consume();
         if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
             removeLines();
+            unsetSelectedStreet();
         }
+
     }
 
     public void removeLines() {
@@ -202,9 +255,9 @@ public class ControllerGui {
         List<Vehicle> elements = new ArrayList<>();
 
         for (model.Line line : this.holder.getLines()) {
-            if ( line.getBusesTimes().contains(time.get(ChronoField.MINUTE_OF_DAY)) && time.get(ChronoField.SECOND_OF_MINUTE) == 0 ) {
+            if ( line.getBusesTimes().contains(time.get(ChronoField.MINUTE_OF_DAY)) && time.get(ChronoField.SECOND_OF_MINUTE) == 1 ) {
                 /* bus is starting right now */
-                elements.add(new Vehicle(line, 1, new Path(createPathCoords(line)),time.toSecondOfDay()));
+                elements.add(new Vehicle(line, 1, new Path(createPathCoords(line), line),time.toSecondOfDay()));
             }
         }
 
@@ -243,8 +296,12 @@ public class ControllerGui {
         List<Vehicle> vehiclesToRemove = new ArrayList<>();
 
         for ( Vehicle vehicle : this.busElements ) {
-            if (vehicle.getDistance() > vehicle.getPath().getPathsize()) {
+            if (vehicle.getDistance() > vehicle.getPath().getPathSize()) {
                 /* bus finished */
+                for (int i = 0; i < vehicle.getGUI().size()-1;i++) {
+                    if (vehicle.getGUI().get(i+1).getTypeSelector().equals("Line"))
+                        vehicle.getGUI().get(i+1).setStroke(Color.TRANSPARENT);
+                }
                 vehiclesToRemove.add(vehicle);
                 content.getChildren().remove(vehicle.getGUI().get(0));
             }
@@ -264,7 +321,7 @@ public class ControllerGui {
                     /* bus is active on road right now */
 
                     // create new bus and initialize his position as his starting position
-                    Vehicle vehicle = new Vehicle(line, 1, new Path(createPathCoords(line)), time.toSecondOfDay());
+                    Vehicle vehicle = new Vehicle(line, 1, new Path(createPathCoords(line), line), time.toSecondOfDay());
                     elements.add(vehicle);
 
                     for ( int i = busTime * 60 ; i <= (offset == 0 ? this.time.toSecondOfDay() : SECOND_BEFORE_MIDNIGHT + offset); i++ ) {
@@ -292,15 +349,15 @@ public class ControllerGui {
         this.holder = holder;
     }
 
-    public void showItinerary(Vehicle vehicle) {
-        Itinerary it = vehicle.getItinerar();
+    private void showItinerary(Vehicle vehicle) {
+        Itinerary it = vehicle.getItinerary();
         //Creating the mouse event handler
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
                 try {
                     removeLines();
-                    canvas =  it.createItinerar(canvas);
+                    canvas =  it.createItinerary(canvas);
                     canvas.setVisible(true);
 
                     for (int i = 0; i < (vehicle.getPath().getGUI().size()); i++) {
@@ -314,5 +371,15 @@ public class ControllerGui {
         };
         //Adding event Filter
         vehicle.getGUI().get(0).addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
+    }
+
+    private void resetBuses() {
+        this.deactivateAllBuses();
+        this.activateActiveBuses(0);
+
+        /* Activate buses before midnight if time was set close after midnight and not all buses starting before midnight already finished */
+        if ( this.time.toSecondOfDay() - this.longestPathLength < 0) {
+            this.activateActiveBuses(this.time.toSecondOfDay());
+        }
     }
 }

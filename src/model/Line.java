@@ -27,7 +27,7 @@ public class Line {
             double y1 = street.start().getY();
             double y2 = street.end().getY();
 
-            pathLength += Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
+            pathLength += Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2)) + street.getTraffic();
         }
         this.pathLength = (int) pathLength;
     }

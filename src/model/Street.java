@@ -1,5 +1,9 @@
 package model;
 
+import gui.StreetGui;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
+
 import java.util.List;
 
 public class Street {
@@ -7,6 +11,8 @@ public class Street {
     private String id;
     private List<Coordinate> coordinates;
     private List<Stop> stops;
+    private int traffic = 0;
+    public StreetGui streetGui;
 
     public Street(String id, List<Coordinate> coordinates, List<Stop> stops) {
         this.id = id;
@@ -36,5 +42,21 @@ public class Street {
 
     public Coordinate end () {
         return this.coordinates.get(1);
+    }
+
+    public int getTraffic() {
+        return traffic;
+    }
+
+    public void setTraffic(int traffic) {
+        this.traffic = traffic;
+    }
+
+    public void setStreetGui(StreetGui streetGui) {
+        this.streetGui = streetGui;
+    }
+
+    public StreetGui getStreetGui() {
+        return this.streetGui;
     }
 }

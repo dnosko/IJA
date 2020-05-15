@@ -39,7 +39,7 @@ public class Vehicle implements Drawable, TimeUpdate {
         it = new Itinerary(this);
     }
 
-    public Itinerary getItinerar() {
+    public Itinerary getItinerary() {
         return it;
     }
 
