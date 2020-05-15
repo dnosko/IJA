@@ -37,11 +37,6 @@ public class StreetGui implements Drawable {
         return Arrays.asList(line);
     }
 
-    @Override
-    public String getType() {
-        return "Street";
-    }
-
     public Street getStreet() {
         return street;
     }

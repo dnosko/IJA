@@ -48,11 +48,6 @@ public class Vehicle implements Drawable, TimeUpdate {
         return gui;
     }
 
-    @Override
-    public String getType() {
-        return "Vehicle";
-    }
-
     public void move(Coordinate coordinates) {
         for (Shape shape : gui) {
             if (shape.getTypeSelector().equals("Line"))

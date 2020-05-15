@@ -27,6 +27,7 @@ public class Itinerary {
     private List<Double> distanceBetweenStops = new ArrayList<>();
     private List<Double> timesinsec = new ArrayList<>();
     private model.Line line;
+    private double drivenDistanceFromOneStopToAnother;
 
     public Itinerary(Vehicle vehicle){
         this.name = this.createText(50,30,vehicle.getLine().getId(),15);
@@ -62,7 +63,6 @@ public class Itinerary {
         it.setVisible(false);
         it.getChildren().add(name);
         it.getChildren().add(this.createLine());
-        getStopTime();
         for (int i =0; i < no_stops; i++) {
             Circle circle = new Circle(X,Y+i*20,2.5);
             circle.setFill(this.color);
@@ -81,7 +81,9 @@ public class Itinerary {
     }
 
     public void updateDistance(double distance){
-        this.actual_position = Y + (distance*scale);
+        int nthStop = whereIsVehicle(distance);
+        getStopTime();
+        this.actual_position = Y + (20*(nthStop)) + ((drivenDistanceFromOneStopToAnother / distanceBetweenStops.get(nthStop)) * 20);
     }
 
     private String convertSecondstoHH_MM(double seconds){
@@ -113,10 +115,25 @@ public class Itinerary {
         }
     }
 
-    public void updateDeparture(double time) {
-        this.timesinsec.set(0,time);
+    private Integer whereIsVehicle(double drivenDistance){
+        double stopDistance = 0;
+        int i = 0;
+        try {
+            while (drivenDistance >= stopDistance) {
+                this.drivenDistanceFromOneStopToAnother = drivenDistance - stopDistance;
+                stopDistance += distanceBetweenStops.get(i);
+                i++;
+            }
+            return i - 1; 
+        }
+        catch (IndexOutOfBoundsException e) {
+            return 0;
+        }
     }
 
 
+    public void updateDeparture(double time) {
+        this.timesinsec.set(0,time);
+    }
 
 }

@@ -78,18 +78,13 @@ public class Path implements Drawable  {
     }
 
     public List<Shape> getGUI() {
-        for(int i =0; i < path.size()-1; i++) {
-            Line line = new Line(this.path.get(i).getX(),this.path.get(i).getY(),this.path.get(i+1).getX(),this.path.get(i+1).getY());
+        for (int i = 0; i < path.size() - 1; i++) {
+            Line line = new Line(this.path.get(i).getX(), this.path.get(i).getY(), this.path.get(i + 1).getX(), this.path.get(i + 1).getY());
             line.setStroke(Color.TRANSPARENT);
             line.setStrokeWidth(1);
             gui.add(line);
         }
         return gui;
-    }
-
-    @Override
-    public String getType() {
-        return "Path";
     }
 
     public List<Coordinate> getPath() {

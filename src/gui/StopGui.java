@@ -1,5 +1,7 @@
 package gui;
 
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
@@ -20,14 +22,11 @@ public class StopGui implements Drawable{
 
     @Override
     public List<Shape> getGUI() {
+
         return Arrays.asList(
                 new Circle(this.position.getX(),this.position.getY(),8, Color.BLACK),
                 new Text(this.position.getX(),this.position.getY() - 7,this.name)
         );
     }
 
-    @Override
-    public String getType() {
-        return "Stop";
-    }
 }
