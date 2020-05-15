@@ -28,6 +28,7 @@ public class StreetGui implements Drawable {
         street.setStreetGui(this);
         this.line = new Line(this.start.getX(),this.start.getY(),this.end.getX(),this.end.getY());
         line.setStrokeWidth(7);
+        line.setStroke(Color.SILVER);
 
     }
 

@@ -98,6 +98,7 @@ public class ControllerGui {
             @Override
             public void handle(MouseEvent e) {
                 try {
+                    removeLines();
                     selectedStreet = street.getStreet();
                     street.getGUI().get(0).setStroke(Color.GOLD);
                     System.out.println("selected street " + street.getStreet().getId());
@@ -189,11 +190,21 @@ public class ControllerGui {
             content.getChildren().addAll(drawable.getGUI());
         }
     }
+
+    private void unsetSelectedStreet() {
+        try {
+            selectedStreet.streetGui.getGUI().get(0).setStroke(Color.GREY);
+            selectedStreet = null;
+        }
+        catch (NullPointerException e) {}
+    }
+
     
     public void removeLines(MouseEvent event) {
         event.consume();
         if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
             removeLines();
+            unsetSelectedStreet();
         }
 
     }
@@ -283,7 +294,10 @@ public class ControllerGui {
         for ( Vehicle vehicle : this.busElements ) {
             if (vehicle.getDistance() > vehicle.getPath().getPathsize()) {
                 /* bus finished */
-                removeLines();
+                for (int i = 0; i < vehicle.getGUI().size()-1;i++) {
+                    if (vehicle.getGUI().get(i+1).getTypeSelector().equals("Line"))
+                        vehicle.getGUI().get(i+1).setStroke(Color.TRANSPARENT);
+                }
                 vehiclesToRemove.add(vehicle);
                 content.getChildren().remove(vehicle.getGUI().get(0));
             }
