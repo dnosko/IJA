@@ -11,9 +11,11 @@ import java.util.List;
 public class Path implements Drawable  {
     private List<Coordinate> path;
     private List<Shape> gui = new ArrayList<>();
+    private model.Line line;
 
-    public Path(List<Coordinate> path) {
+    public Path(List<Coordinate> path, model.Line line) {
         this.path = path;
+        this.line = line;
     }
 
     public Coordinate getPoint(int nth) {
@@ -43,13 +45,23 @@ public class Path implements Drawable  {
                 a.getY() + (b.getY()- a.getY())* distance_driven);
     }
 
-    public double getDistanceBetweenPoints(Coordinate a, Coordinate b){
-        return Math.sqrt(Math.pow(a.getX()-b.getX(),2) + Math.pow(a.getY() - b.getY(),2));
+    public double getDistanceBetweenPoints(Coordinate start, Coordinate end){
+
+        double distance;
+        distance = Math.sqrt(Math.pow(start.getX()-end.getX(),2) + Math.pow(start.getY() - end.getY(),2));
+        for ( model.Street street : this.line.getStreets() ) {
+            if ( (street.start().getX() == start.getX() && street.start().getY() == start.getY() && street.end().getX() == end.getX() && street.end().getY() == end.getY()) ||
+                 (street.start().getX() == end.getX() && street.start().getY() == end.getY() && street.end().getX() == start.getX() && street.end().getY() == start.getY())
+            ) {
+                distance += street.getTraffic();
+            }
+        }
+        return distance;
     }
 
-    public double getPathsize(){
+    public double getPathSize(){
         double size = 0;
-        for (int i =0; i < path.size() -1; i++) {
+        for (int i = 0; i < path.size() - 1; i++) {
             size += getDistanceBetweenPoints(path.get(i), path.get(i+1));
         }
         return size;
@@ -68,6 +80,10 @@ public class Path implements Drawable  {
     @Override
     public String getType() {
         return "Path";
+    }
+
+    public List<Coordinate> getPath() {
+        return this.path;
     }
 
 }

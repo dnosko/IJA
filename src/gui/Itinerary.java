@@ -26,9 +26,11 @@ public class Itinerary {
     private Circle actual_pos;
     private List<Double> distanceBetweenStops = new ArrayList<>();
     private List<Double> timesinsec = new ArrayList<>();
+    private model.Line line;
 
     public Itinerary(Vehicle vehicle){
         this.name = this.createText(50,30,vehicle.getLine().getId(),15);
+        this.line = vehicle.getLine();
 
         this.liststop = vehicle.getLine().getStops();
         this.no_stops = vehicle.getLine().getStops().size();
@@ -96,7 +98,7 @@ public class Itinerary {
         for (int i = 0; i < liststop.size()-1;i++) {
                 Coordinate a = liststop.get(i).getCoordinate();
                 Coordinate b = liststop.get(i+1).getCoordinate();
-                Path stops = new Path(Arrays.asList(a,b));
+                Path stops = new Path(Arrays.asList(a,b), this.line);
 
                 if (a.getX() == b.getX() || a.getY() == b.getY()) // points lie on the same line
                     size = stops.getDistanceBetweenPoints(a,b);

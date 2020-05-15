@@ -77,7 +77,7 @@ public class ControllerGui {
     @FXML
     public void onTrafficSet() {
         try {
-            int traffic = Integer.parseInt(changeTimeSpeed.getText());
+            int traffic = Integer.parseInt(TextFieldTraffic.getText());
 
             if ( this.selectedStreet == null ) {
                 TextFieldTraffic.replaceSelection("Street not selected.");
@@ -101,7 +101,6 @@ public class ControllerGui {
                     removeLines();
                     selectedStreet = street.getStreet();
                     street.getGUI().get(0).setStroke(Color.GOLD);
-                    System.out.println("selected street " + street.getStreet().getId());
                 }
                 catch (IndexOutOfBoundsException exception) {
                     System.out.println("INDEX OUT OF BOUNDS");
@@ -253,7 +252,7 @@ public class ControllerGui {
         for (model.Line line : this.holder.getLines()) {
             if ( line.getBusesTimes().contains(time.get(ChronoField.MINUTE_OF_DAY)) && time.get(ChronoField.SECOND_OF_MINUTE) == 0 ) {
                 /* bus is starting right now */
-                elements.add(new Vehicle(line, 1, new Path(createPathCoords(line)),time.toSecondOfDay()));
+                elements.add(new Vehicle(line, 1, new Path(createPathCoords(line), line),time.toSecondOfDay()));
             }
         }
 
@@ -292,7 +291,7 @@ public class ControllerGui {
         List<Vehicle> vehiclesToRemove = new ArrayList<>();
 
         for ( Vehicle vehicle : this.busElements ) {
-            if (vehicle.getDistance() > vehicle.getPath().getPathsize()) {
+            if (vehicle.getDistance() > vehicle.getPath().getPathSize()) {
                 /* bus finished */
                 for (int i = 0; i < vehicle.getGUI().size()-1;i++) {
                     if (vehicle.getGUI().get(i+1).getTypeSelector().equals("Line"))
@@ -317,7 +316,7 @@ public class ControllerGui {
                     /* bus is active on road right now */
 
                     // create new bus and initialize his position as his starting position
-                    Vehicle vehicle = new Vehicle(line, 1, new Path(createPathCoords(line)), time.toSecondOfDay());
+                    Vehicle vehicle = new Vehicle(line, 1, new Path(createPathCoords(line), line), time.toSecondOfDay());
                     elements.add(vehicle);
 
                     for ( int i = busTime * 60 ; i <= (offset == 0 ? this.time.toSecondOfDay() : SECOND_BEFORE_MIDNIGHT + offset); i++ ) {
