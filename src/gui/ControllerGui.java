@@ -1,8 +1,3 @@
-/*
-TODO
- bugs
-    ked bus pride do ciela a zaroven je selected, neprebehne odstranenie vsetkych koponent (farby cesty ostanu bugnute uz navzdy)
- */
 
 package gui;
 
@@ -264,6 +259,7 @@ public class ControllerGui {
         for ( Vehicle vehicle : this.busElements ) {
             if (vehicle.getDistance() > vehicle.getPath().getPathsize()) {
                 /* bus finished */
+                removeLines();
                 vehiclesToRemove.add(vehicle);
                 content.getChildren().remove(vehicle.getGUI().get(0));
             }
@@ -310,6 +306,7 @@ public class ControllerGui {
     public void setHolder(DataHolder holder) {
         this.holder = holder;
     }
+
 
     public void showItinerary(Vehicle vehicle) {
         Itinerary it = vehicle.getItinerary();
