@@ -1,6 +1,8 @@
 package model;
 
 import gui.StreetGui;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 
 import java.util.List;
 
@@ -10,7 +12,7 @@ public class Street {
     private List<Coordinate> coordinates;
     private List<Stop> stops;
     private int traffic = 0;
-    private StreetGui streetGui;
+    public StreetGui streetGui;
 
     public Street(String id, List<Coordinate> coordinates, List<Stop> stops) {
         this.id = id;
@@ -52,5 +54,9 @@ public class Street {
 
     public void setStreetGui(StreetGui streetGui) {
         this.streetGui = streetGui;
+    }
+
+    public StreetGui getStreetGui() {
+        return this.streetGui;
     }
 }

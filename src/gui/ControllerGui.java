@@ -39,7 +39,8 @@ public class ControllerGui {
 
     private DataHolder holder;
 
-    private Street selectedStreet = null;
+    public Street selectedStreet = null;
+    public StreetGui selStreet;
 
     private Timer timer;
     private LocalTime time = LocalTime.now();
@@ -90,6 +91,28 @@ public class ControllerGui {
             TextFieldTraffic.replaceSelection("Must be a positive integer number.");
         }
     }
+
+    private void setSelectedStreet(StreetGui street) {
+        //Creating the mouse event handler
+        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                try {
+                    selectedStreet = street.getStreet();
+                    street.getGUI().get(0).setStroke(Color.GOLD);
+                    System.out.println("selected street " + street.getStreet().getId());
+                }
+                catch (IndexOutOfBoundsException exception) {
+                    System.out.println("INDEX OUT OF BOUNDS");
+                }
+            }
+        };
+        //Adding event Filter
+        street.getGUI().get(0).addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
+    }
+
+
+
 
     @FXML
     public void showTime(){
@@ -148,6 +171,7 @@ public class ControllerGui {
         /* create street elements */
         for (Street street : holder.getStreets()) {
             StreetGui streetGui = new StreetGui(street.getId(),street.start(),street.end(), street);
+            setSelectedStreet(streetGui);
             elements.add(streetGui);
             this.streetElements.add(streetGui);
         }
@@ -307,8 +331,7 @@ public class ControllerGui {
         this.holder = holder;
     }
 
-
-    public void showItinerary(Vehicle vehicle) {
+    private void showItinerary(Vehicle vehicle) {
         Itinerary it = vehicle.getItinerary();
         //Creating the mouse event handler
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
