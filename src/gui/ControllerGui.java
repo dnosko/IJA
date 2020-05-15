@@ -250,7 +250,7 @@ public class ControllerGui {
         List<Vehicle> elements = new ArrayList<>();
 
         for (model.Line line : this.holder.getLines()) {
-            if ( line.getBusesTimes().contains(time.get(ChronoField.MINUTE_OF_DAY)) && time.get(ChronoField.SECOND_OF_MINUTE) == 0 ) {
+            if ( line.getBusesTimes().contains(time.get(ChronoField.MINUTE_OF_DAY)) && time.get(ChronoField.SECOND_OF_MINUTE) == 1 ) {
                 /* bus is starting right now */
                 elements.add(new Vehicle(line, 1, new Path(createPathCoords(line), line),time.toSecondOfDay()));
             }

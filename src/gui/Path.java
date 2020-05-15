@@ -49,6 +49,7 @@ public class Path implements Drawable  {
 
         double distance;
         distance = Math.sqrt(Math.pow(start.getX()-end.getX(),2) + Math.pow(start.getY() - end.getY(),2));
+
         for ( model.Street street : this.line.getStreets() ) {
             if ( (street.start().getX() == start.getX() && street.start().getY() == start.getY() && street.end().getX() == end.getX() && street.end().getY() == end.getY()) ||
                  (street.start().getX() == end.getX() && street.start().getY() == end.getY() && street.end().getX() == start.getX() && street.end().getY() == start.getY())
@@ -56,6 +57,15 @@ public class Path implements Drawable  {
                 distance += street.getTraffic();
             }
         }
+
+        if ( this.path.get(0).getX() == start.getX() && this.path.get(0).getY() == start.getY() || this.path.get(0).getX() == end.getX() && this.path.get(0).getY() == end.getY() ) {
+            distance += this.line.getStreets().get(0).getTraffic();
+        }
+
+        if ( this.path.get(this.path.size() - 1).getX() == start.getX() && this.path.get(this.path.size() - 1).getY() == start.getY() || this.path.get(this.path.size() - 1).getX() == end.getX() && this.path.get(this.path.size() - 1).getY() == end.getY() ) {
+            distance += this.line.getStreets().get(this.line.getStreets().size() - 1).getTraffic();
+        }
+
         return distance;
     }
 
