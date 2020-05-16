@@ -75,6 +75,9 @@ public class ControllerGui {
         }
     }
 
+    /**
+     * This method is called whenever user confirm set traffic button
+     */
     @FXML
     public void onTrafficSet() {
         try {
@@ -156,12 +159,20 @@ public class ControllerGui {
         }
     }
 
-    private void setVehicleElements(List<BusGui> elements){
+    /**
+     * Sets Buses elements to gui
+     *
+     * @param elements buses elements
+     */
+    private void setBusElements(List<BusGui> elements){
         for (BusGui busGui : elements) {
             content.getChildren().addAll(busGui.getGUI());
         }
     }
 
+    /**
+     * sets basic map elements (streets, stops) to gui
+     */
     public void setMapBase() {
         List<Drawable> elements = new ArrayList<>();
 
@@ -177,10 +188,7 @@ public class ControllerGui {
             elements.add(new StopGui(stop.getId(), stop.getCoordinate()));
         }
 
-        this.setBaseElements(elements);
-    }
-
-    private void setBaseElements(List<Drawable> elements) {
+        /* set basic elements to gui */
         for (Drawable drawable : elements) {
             content.getChildren().addAll(drawable.getGUI());
         }
@@ -247,6 +255,9 @@ public class ControllerGui {
         }
     }
 
+    /**
+     * Activate buses if local time reached their start time
+     */
     private void activateBuses() {
 
         List<BusGui> elements = new ArrayList<>();
@@ -260,7 +271,7 @@ public class ControllerGui {
 
         if ( ! elements.isEmpty() ) {
             this.busElements.addAll(elements);
-            this.setVehicleElements(elements);
+            this.setBusElements(elements);
         }
     }
 
@@ -289,8 +300,11 @@ public class ControllerGui {
         return pathCoords;
     }
 
+    /**
+     * Deactivate buses if local time reached their end time
+     */
     private void deactivateBuses() {
-        List<BusGui> vehiclesToRemove = new ArrayList<>();
+        List<BusGui> busesToRemove = new ArrayList<>();
 
         for ( BusGui busGui : this.busElements ) {
             if (busGui.getDistance() > busGui.getPath().getPathSize()) {
@@ -299,14 +313,21 @@ public class ControllerGui {
                     if (busGui.getGUI().get(i+1).getTypeSelector().equals("Line"))
                         busGui.getGUI().get(i+1).setStroke(Color.TRANSPARENT);
                 }
-                vehiclesToRemove.add(busGui);
+                busesToRemove.add(busGui);
                 content.getChildren().remove(busGui.getGUI().get(0));
             }
         }
 
-        this.busElements.removeAll(vehiclesToRemove);
+        this.busElements.removeAll(busesToRemove);
     }
 
+    /**
+     * Activate buses if some sort of time jump is made in application (first start, time change, ..)
+     *
+     * Will activate all buses already on road, that means local time is somewhere between their start and end time
+     *
+     * @param offset
+     */
     public void activateActiveBuses (int offset) {
 
         final int SECOND_BEFORE_MIDNIGHT = 86399;
@@ -332,11 +353,7 @@ public class ControllerGui {
         }
 
         this.busElements.addAll(elements);
-        this.setVehicleElements(elements);
-    }
-
-    public void setHolder(DataHolder holder) {
-        this.holder = holder;
+        this.setBusElements(elements);
     }
 
     private void showItinerary(BusGui busGui) {
@@ -364,6 +381,9 @@ public class ControllerGui {
         busGui.getGUI().get(0).addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
     }
 
+    /**
+     * Deactivate all buses and paint them again with new information, used if data dictating bus position were changed
+     */
     public void resetBuses() {
 
         /* deactivate all buses */
@@ -379,5 +399,14 @@ public class ControllerGui {
         if ( this.time.toSecondOfDay() - this.longestPathLength < 0) {
             this.activateActiveBuses(this.time.toSecondOfDay());
         }
+    }
+
+    /**
+     * Setter for 'holder'
+     *
+     * @param holder data holder
+     */
+    public void setHolder(DataHolder holder) {
+        this.holder = holder;
     }
 }
