@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="IJA" default="main" basedir=".">
+<project name="IJA" basedir="." default="main">
     <!-- Sets variables which can later be used. -->
     <!-- The value of a property is accessed via ${} -->
     <property name="src.dir" location="src" />
@@ -7,6 +7,7 @@
     <property name="lib.dir" location="lib" />
     <property name="doc.dir" location="doc" />
     <property name="dest.dir" location="dest" />
+
 
     <!-- Deletes the existing build -->
     <target name="clean">
@@ -28,11 +29,11 @@
 
     <!-- Compiles the java code (including the usage of library for JUnit -->
     <target name="compile" depends="clean, makedir">
-        <javac includeantruntime="false" srcdir="${src.dir}" destdir="${build.dir}" debug="on">
+        <javac includeantruntime="false" srcdir="${src.dir}" destdir="${build.dir}">
         </javac>
         <jar destfile="dest/ija-app.jar" basedir="build">
             <manifest>
-                <attribute name="Main-Class" value="src.Main"/>
+                <attribute name="Main-Class" value="gui.Main"/>
             </manifest>
             <fileset dir="lib">
                 <include name="img/**" />
