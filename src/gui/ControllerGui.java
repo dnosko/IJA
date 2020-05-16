@@ -291,6 +291,11 @@ public class ControllerGui {
         }
     }
 
+    /**
+     * Method creates path for line.
+     * @param line Line for which to create path.
+     * @return List of coordinates representing path.
+     */
     public List<Coordinate> createPathCoords(model.Line line) {
         List<Stop> StopsLine = line.getStops();
         List<Coordinate> pathCoords = new ArrayList<>();
