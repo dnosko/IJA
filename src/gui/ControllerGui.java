@@ -49,8 +49,10 @@ public class ControllerGui {
     private LocalTime time = LocalTime.now();
     private static int zoomInXth = 0;
 
+    /**
+     * Method sets time to time entered by user.
+     */
     @FXML
-    /* sets time */
     private void onTimeChange() {
         try {
             time = LocalTime.parse(setTime.getText());
@@ -63,8 +65,10 @@ public class ControllerGui {
         this.resetBuses();
     }
 
+    /**
+     * Method fast-forwards time.
+     */
     @FXML
-    /* changes time's speed */
     public void onTimeChangeSpeed() {
         try {
             float scale = Float.parseFloat(changeTimeSpeed.getText());
@@ -94,6 +98,10 @@ public class ControllerGui {
         }
     }
 
+    /**
+     * Method sets street as selected on mouseclick.
+     * @param street Clicked on street.
+     */
     private void setSelectedStreet(StreetGui street) {
         //Creating the mouse event handler
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
@@ -113,25 +121,21 @@ public class ControllerGui {
         street.getGUI().get(0).addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
     }
 
+    /**
+     * Method shows time.
+     */
     @FXML
     public void showTime(){
         clock.clear();
         clock.setText(LocalTime.of(time.getHour(),time.getMinute(),time.getSecond()).toString());
     }
 
+    /**
+     * Method zooms in and out the map.
+     */
     @FXML
-    private void onZoom(ScrollEvent event) {
+    private void onZoom(KeyEvent event) {
         event.consume();
-        double zoom = event.getDeltaY() > 0 ? 1.1 : 0.9;
-        content.setScaleX(zoom * content.getScaleX());
-        content.setScaleY(zoom * content.getScaleY());
-        content.layout();
-    }
-
-    @FXML
-    private void onZoo(KeyEvent event) {
-        event.consume();
-        System.out.println("Test" + event.getCode());
         if ( event.getEventType() == KeyEvent.KEY_PRESSED) {
             KeyCode code = event.getCode();
            if (code == KeyCode.ADD || code == KeyCode.UP) {
@@ -187,6 +191,9 @@ public class ControllerGui {
         }
     }
 
+    /**
+     * Method unsets selected street.
+     */
     private void unsetSelectedStreet() {
         try {
             if ( this.selectedStreet.getTraffic() == 0 ) {
@@ -202,7 +209,9 @@ public class ControllerGui {
         }
     }
 
-    
+    /**
+     * Method removes highlighted path of selected bus on mouse-click.
+     */
     public void removeLines(MouseEvent event) {
         event.consume();
         if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
@@ -211,6 +220,9 @@ public class ControllerGui {
         }
     }
 
+    /**
+     * Method removes highlighted path of selected bus.
+     */
     public void removeLines() {
         canvas.getChildren().clear();
         for (Drawable element : this.busElements) {
@@ -223,6 +235,10 @@ public class ControllerGui {
         }
     }
 
+    /**
+     * Method starts timer and activates buses.
+     * @param scale Time speed.
+     */
     public void startTime(float scale) {
         timer = new Timer(false);
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -340,6 +356,11 @@ public class ControllerGui {
         this.holder = holder;
     }
 
+
+    /**
+     * Method shows itinerary of the bus on mouse-click on the bus.
+     * @param busGui Clicked on bus.
+     */
     private void showItinerary(BusGui busGui) {
         Itinerary it = busGui.getItinerary();
 

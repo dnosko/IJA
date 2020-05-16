@@ -27,9 +27,9 @@
         </AnchorPane>
     </right>
     <center>
-        <ScrollPane onKeyPressed="#onZoo" onScroll="#onZoom" pannable="true" prefHeight="600.0" prefWidth="597.0"
+        <ScrollPane onKeyPressed="#onZoom" pannable="true" prefHeight="600.0" prefWidth="597.0"
                     BorderPane.alignment="CENTER">
-            <AnchorPane fx:id="content" minHeight="0.0" minWidth="0.0" onKeyPressed="#onZoo" onScroll="#onZoom"
+            <AnchorPane fx:id="content" minHeight="0.0" minWidth="0.0" onKeyPressed="#onZoom"
                         prefHeight="1000.0" prefWidth="1000.0">
                 <AnchorPane onMouseClicked="#removeLines" prefHeight="600.0" prefWidth="800.0"/>
             </AnchorPane>

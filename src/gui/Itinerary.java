@@ -1,12 +1,6 @@
-/**
- * Class representing Itinerary of one bus.
- *
- * @author Andrej Pavlovič <xpavlo14@stud.fit.vutbr.cz>
- * @author Daša Nosková <xnosko05@stud.fit.vutbr.cz>
- */
-
 package gui;
 
+import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -21,6 +15,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Class representing Itinerary of one bus.
+ *
+ * @author Andrej Pavlovič <xpavlo14@stud.fit.vutbr.cz>
+ * @author Daša Nosková <xnosko05@stud.fit.vutbr.cz>
+ */
 public class Itinerary {
     private final double X = 20;
     private final double Y = 60;
@@ -35,6 +35,10 @@ public class Itinerary {
     private final List<Double> timesInSec = new ArrayList<>();
     private final model.Line line;
 
+    /**
+     * Creates a new instance.
+     * @param busGui Bus of itinerary.
+     */
     public Itinerary(BusGui busGui){
         this.name = this.createText(50,30, busGui.getLine().getId(),15);
         this.line = busGui.getLine();
@@ -48,6 +52,9 @@ public class Itinerary {
         this.actual_position =  Y;
     }
 
+    /**
+     * @return New base line of itinerary.
+     */
     private Line createLine() {
         Line line = new Line();
         line.setStartX(X); line.setEndX(X);
@@ -57,12 +64,25 @@ public class Itinerary {
         return line;
     }
 
+    /**
+     * @param X X position
+     * @param Y Y position
+     * @param write_text Text to be written.
+     * @param size Size of text.
+     * @return New text.
+     */
     private Text createText(double X, double Y, String write_text, int size) {
         Text text = new Text(X,Y,write_text);
         text.setFont(Font.font("Times New Roman", FontWeight.NORMAL,FontPosture.REGULAR,size));
         return text;
     }
 
+    /**
+     * @param Y position on itinerary.
+     * @param radius Radius of circle.
+     * @param fill Filling of circle.
+     * @return New circle on itinerary.
+     */
     private Circle createCircle(double Y, double radius, Color fill) {
         Circle circle = new Circle(X, Y, radius);
         circle.setStroke(this.color);
@@ -70,13 +90,18 @@ public class Itinerary {
         return circle;
     }
 
+    /**
+     * Method creates itinerary of bus.
+     * @param it Pane to draw on.
+     * @return Itinerary of bus.
+     */
     public Pane createItinerary(Pane it){
         it.setVisible(false);
         it.getChildren().addAll(name,this.createLine());
         for (int i =0; i < no_stops; i++) {
             Circle stop = createCircle(Y+i*20,2.5, this.color);
-            Text stop_name = createText(X+20,Y+i*20, listStop.get(i).getId(),11);
-            Text stop_time = createText(X+70, Y+i*20,this.convertSecondsToHH_MM(timesInSec.get(i)),11);
+            Text stop_name = createText(X+20,Y+i*20, listStop.get(i).getId(),11); // write stop name
+            Text stop_time = createText(X+70, Y+i*20,this.convertSecondsToHH_MM(timesInSec.get(i)),11); //write time of departure to stop
             it.getChildren().addAll(stop_name,stop_time,stop);
         }
 
@@ -87,12 +112,21 @@ public class Itinerary {
         return it;
     }
 
+    /**
+     * Method updates actual position of bus on itinerary.
+     * @param distance Actual distance of bus.
+     */
     public void updateDistance(double distance){
         int nthStop = whereIsVehicle(distance);
         getStopTime();
         this.actual_position = Y + (20*(nthStop)) + ((drivenDistanceFromOneStopToAnother / distanceBetweenStops.get(nthStop)) * 20);
     }
 
+    /**
+     * Method converts time in seconds to HH:MM format.
+     * @param seconds Time in seconds.
+     * @return Time in HH:MM format.
+     */
     private String convertSecondsToHH_MM(double seconds){
        int hour = (int)seconds/3600;
        double minute = ((seconds/3600.00) - hour)* 60;
@@ -102,6 +136,9 @@ public class Itinerary {
             return hour + ":" + (int)(minute);
     }
 
+    /**
+     * Method calculates time of arrival at each stop.
+     */
     private void getStopTime(){
         double size;
         for (int i = 0; i < listStop.size()-1; i++) {
@@ -122,6 +159,10 @@ public class Itinerary {
         }
     }
 
+    /** Method calculates position of bus.
+     * @param drivenDistance Already driven distance of the bus.
+     * @return Number of the last stop
+     */
     private Integer whereIsVehicle(double drivenDistance){
         double stopDistance = 0;
         int i = 0;
@@ -138,7 +179,9 @@ public class Itinerary {
         }
     }
 
-
+    /** Method updates departure of bus,
+     * @param time Time of departure.
+     */
     public void updateDeparture(double time) {
         this.timesInSec.set(0,time);
     }

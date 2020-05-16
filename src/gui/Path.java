@@ -1,10 +1,3 @@
-/**
- * Class representing path of one bus.
- *
- * @author Andrej Pavlovič <xpavlo14@stud.fit.vutbr.cz>
- * @author Daša Nosková <xnosko05@stud.fit.vutbr.cz>
- */
-
 package gui;
 
 import javafx.scene.paint.Color;
@@ -14,16 +7,31 @@ import model.Coordinate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class representing path of one bus.
+ *
+ * @author Andrej Pavlovič <xpavlo14@stud.fit.vutbr.cz>
+ * @author Daša Nosková <xnosko05@stud.fit.vutbr.cz>
+ */
 public class Path implements Drawable  {
     private final List<Coordinate> path;
     private final List<Shape> gui = new ArrayList<>();
     private final model.Line line;
 
+    /**
+     * Creates a new instance.
+     * @param path Coordinates of path.
+     * @param line Line driving through this path.
+     */
     public Path(List<Coordinate> path, model.Line line) {
         this.path = path;
         this.line = line;
     }
 
+    /**
+     * Method calculates new position of bus.
+     * @param distance Actual distance of bus.
+     */
     public Coordinate getCoordinateDistance(double distance){
         double length = 0;
         double currentLength = 0;
@@ -47,6 +55,11 @@ public class Path implements Drawable  {
                 a.getY() + (b.getY()- a.getY())* distance_driven);
     }
 
+    /**
+     * Method calculates distance between points.
+     * @param start Start point.
+     * @param end End point.
+     */
     public double getDistanceBetweenPoints(Coordinate start, Coordinate end){
 
         /* calculate real distance */
@@ -75,6 +88,9 @@ public class Path implements Drawable  {
         return distance;
     }
 
+    /**
+     * @return Return size of path.
+     */
     public double getPathSize(){
         double size = 0;
         for (int i = 0; i < path.size() - 1; i++) {
@@ -83,6 +99,10 @@ public class Path implements Drawable  {
         return size;
     }
 
+    /**
+     * Method creates and returns list of drawable lines representing path.
+     * @return List of drawable lines representing path.
+     */
     public List<Shape> getGUI() {
         for (int i = 0; i < path.size() - 1; i++) {
             Line line = new Line(this.path.get(i).getX(), this.path.get(i).getY(), this.path.get(i + 1).getX(), this.path.get(i + 1).getY());
