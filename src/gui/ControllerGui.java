@@ -1,7 +1,8 @@
-/*
-TODO
-    ked sa klikne na mapu -> NullPointerException
-    scroll na mape s koleckom iba odzoomuje??
+/**
+ * Class representing controller which handles user interface.
+ *
+ * @author Andrej Pavlovič <xpavlo14@stud.fit.vutbr.cz>
+ * @author Daša Nosková <xnosko05@stud.fit.vutbr.cz>
  */
 
 package gui;
@@ -197,7 +198,7 @@ public class ControllerGui {
             selectedStreet = null;
         }
         catch (NullPointerException e) {
-            System.out.println("NullPointerException");
+            //no street to unselect
         }
     }
 

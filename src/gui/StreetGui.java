@@ -1,3 +1,10 @@
+/**
+ * Class representing drawable street on the map.
+ *
+ * @author Andrej Pavlovič <xpavlo14@stud.fit.vutbr.cz>
+ * @author Daša Nosková <xnosko05@stud.fit.vutbr.cz>
+ */
+
 package gui;
 
 import javafx.scene.paint.Color;

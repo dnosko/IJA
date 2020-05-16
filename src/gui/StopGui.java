@@ -1,4 +1,10 @@
 package gui;
+/**
+ * Class representing drawable stop on the map.
+ *
+ * @author Andrej Pavlovič <xpavlo14@stud.fit.vutbr.cz>
+ * @author Daša Nosková <xnosko05@stud.fit.vutbr.cz>
+ */
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
