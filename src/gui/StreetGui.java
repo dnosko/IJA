@@ -7,6 +7,7 @@ import model.Coordinate;
 import model.Street;
 import java.util.Collections;
 import java.util.List;
+
 /**
  * Class representing drawable street on the map.
  *

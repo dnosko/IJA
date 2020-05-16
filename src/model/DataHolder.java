@@ -6,12 +6,23 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * Class holding all data used by gui, data are accessible only by this class
+ *
+ * @author Andrej Pavlovič <xpavlo14@stud.fit.vutbr.cz>
+ * @author Daša Nosková <xnosko05@stud.fit.vutbr.cz>
+ */
 public class DataHolder {
 
     private final List<Stop> stops = new ArrayList<>();
     private final List<Street> streets = new ArrayList<>();
     private final List<Line> lines = new ArrayList<>();
 
+    /**
+     * Constructor reads provided text files, create all objects and fill them with data
+     *
+     * @param folderPath location of data text files to read
+     */
     public DataHolder(String folderPath) {
 
         File streetsFile = new File(folderPath + "streets.txt");
@@ -145,14 +156,29 @@ public class DataHolder {
         }
     }
 
+    /**
+     * Getter of 'stops'
+     *
+     * @return List of all existing stops
+     */
     public List<Stop> getStops() {
         return this.stops;
     }
 
+    /**
+     * Getter of 'streets'
+     *
+     * @return List of all existing streets
+     */
     public List<Street> getStreets() {
         return this.streets;
     }
 
+    /**
+     * Getter of 'lines'
+     *
+     * @return List of all existing lines
+     */
     public List<Line> getLines() {
         return this.lines;
     }

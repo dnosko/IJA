@@ -1,10 +1,3 @@
-/**
- * Class representing controller which handles user interface.
- *
- * @author Andrej Pavlovič <xpavlo14@stud.fit.vutbr.cz>
- * @author Daša Nosková <xnosko05@stud.fit.vutbr.cz>
- */
-
 package gui;
 
 import javafx.application.Platform;
@@ -26,6 +19,12 @@ import java.time.LocalTime;
 import java.util.*;
 import java.time.temporal.ChronoField;
 
+/**
+ * Class representing controller which handles user interface.
+ *
+ * @author Andrej Pavlovič <xpavlo14@stud.fit.vutbr.cz>
+ * @author Daša Nosková <xnosko05@stud.fit.vutbr.cz>
+ */
 public class ControllerGui {
 
     @FXML
@@ -80,6 +79,9 @@ public class ControllerGui {
         }
     }
 
+    /**
+     * This method is called whenever user confirm set traffic button
+     */
     @FXML
     public void onTrafficSet() {
         try {
@@ -161,18 +163,26 @@ public class ControllerGui {
         }
     }
 
-    private void setVehicleElements(List<BusGui> elements){
+    /**
+     * Sets Buses elements to gui
+     *
+     * @param elements buses elements
+     */
+    private void setBusElements(List<BusGui> elements){
         for (BusGui busGui : elements) {
             content.getChildren().addAll(busGui.getGUI());
         }
     }
 
+    /**
+     * sets basic map elements (streets, stops) to gui
+     */
     public void setMapBase() {
         List<Drawable> elements = new ArrayList<>();
 
         /* create street elements */
         for (Street street : holder.getStreets()) {
-            StreetGui streetGui = new StreetGui(street.start(), street.end(), street);
+            StreetGui streetGui = new StreetGui(street.getStart(), street.getEnd(), street);
             setSelectedStreet(streetGui);
             elements.add(streetGui);
         }
@@ -182,10 +192,7 @@ public class ControllerGui {
             elements.add(new StopGui(stop.getId(), stop.getCoordinate()));
         }
 
-        this.setBaseElements(elements);
-    }
-
-    private void setBaseElements(List<Drawable> elements) {
+        /* set basic elements to gui */
         for (Drawable drawable : elements) {
             content.getChildren().addAll(drawable.getGUI());
         }
@@ -264,6 +271,9 @@ public class ControllerGui {
         }
     }
 
+    /**
+     * Activate buses if local time reached their start time
+     */
     private void activateBuses() {
 
         List<BusGui> elements = new ArrayList<>();
@@ -277,7 +287,7 @@ public class ControllerGui {
 
         if ( ! elements.isEmpty() ) {
             this.busElements.addAll(elements);
-            this.setVehicleElements(elements);
+            this.setBusElements(elements);
         }
     }
 
@@ -290,24 +300,27 @@ public class ControllerGui {
         for (Street str : StreetLine) {
             // if its last street in Line, get only beginning of street
             if (str.equals(StreetLine.get(StreetLine.size() - 1))) {
-                pathCoords.add(str.start());
+                pathCoords.add(str.getStart());
                 continue;
             }
             //if its first street in line get only end of street
             if (str.equals(StreetLine.get(0))) {
-                pathCoords.add(str.end());
+                pathCoords.add(str.getEnd());
                 continue;
             }
-            pathCoords.add(str.start());
-            pathCoords.add(str.end());
+            pathCoords.add(str.getStart());
+            pathCoords.add(str.getEnd());
         }
         pathCoords.add(StopsLine.get(StopsLine.size() - 1).getCoordinate()); //last stop
 
         return pathCoords;
     }
 
+    /**
+     * Deactivate buses if local time reached their end time
+     */
     private void deactivateBuses() {
-        List<BusGui> vehiclesToRemove = new ArrayList<>();
+        List<BusGui> busesToRemove = new ArrayList<>();
 
         for ( BusGui busGui : this.busElements ) {
             if (busGui.getDistance() > busGui.getPath().getPathSize()) {
@@ -316,14 +329,21 @@ public class ControllerGui {
                     if (busGui.getGUI().get(i+1).getTypeSelector().equals("Line"))
                         busGui.getGUI().get(i+1).setStroke(Color.TRANSPARENT);
                 }
-                vehiclesToRemove.add(busGui);
+                busesToRemove.add(busGui);
                 content.getChildren().remove(busGui.getGUI().get(0));
             }
         }
 
-        this.busElements.removeAll(vehiclesToRemove);
+        this.busElements.removeAll(busesToRemove);
     }
 
+    /**
+     * Activate buses if some sort of time jump is made in application (first start, time change, ..)
+     *
+     * Will activate all buses already on road, that means local time is somewhere between their start and end time
+     *
+     * @param offset
+     */
     public void activateActiveBuses (int offset) {
 
         final int SECOND_BEFORE_MIDNIGHT = 86399;
@@ -349,11 +369,7 @@ public class ControllerGui {
         }
 
         this.busElements.addAll(elements);
-        this.setVehicleElements(elements);
-    }
-
-    public void setHolder(DataHolder holder) {
-        this.holder = holder;
+        this.setBusElements(elements);
     }
 
 
@@ -386,6 +402,9 @@ public class ControllerGui {
         busGui.getGUI().get(0).addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
     }
 
+    /**
+     * Deactivate all buses and paint them again with new information, used if data dictating bus position were changed
+     */
     public void resetBuses() {
 
         /* deactivate all buses */
@@ -401,5 +420,14 @@ public class ControllerGui {
         if ( this.time.toSecondOfDay() - this.longestPathLength < 0) {
             this.activateActiveBuses(this.time.toSecondOfDay());
         }
+    }
+
+    /**
+     * Setter for 'holder'
+     *
+     * @param holder data holder
+     */
+    public void setHolder(DataHolder holder) {
+        this.holder = holder;
     }
 }
