@@ -1,20 +1,18 @@
-/**
- * Class representing drawable bus on the map.
- *
- * @author Andrej Pavlovič <xpavlo14@stud.fit.vutbr.cz>
- * @author Daša Nosková <xnosko05@stud.fit.vutbr.cz>
- */
-
 package gui;
 
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import model.Coordinate;
 import model.Line;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class representing drawable bus on the map.
+ *
+ * @author Andrej Pavlovič <xpavlo14@stud.fit.vutbr.cz>
+ * @author Daša Nosková <xnosko05@stud.fit.vutbr.cz>
+ */
 public class BusGui implements Drawable {
 
     private int distance = 0;

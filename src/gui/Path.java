@@ -1,10 +1,3 @@
-/**
- * Class representing path of one bus.
- *
- * @author Andrej Pavlovič <xpavlo14@stud.fit.vutbr.cz>
- * @author Daša Nosková <xnosko05@stud.fit.vutbr.cz>
- */
-
 package gui;
 
 import javafx.scene.paint.Color;
@@ -14,6 +7,12 @@ import model.Coordinate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class representing path of one bus.
+ *
+ * @author Andrej Pavlovič <xpavlo14@stud.fit.vutbr.cz>
+ * @author Daša Nosková <xnosko05@stud.fit.vutbr.cz>
+ */
 public class Path implements Drawable  {
     private final List<Coordinate> path;
     private final List<Shape> gui = new ArrayList<>();
@@ -55,8 +54,8 @@ public class Path implements Drawable  {
 
         /* find out which road are represented as those coordinates (if any), then add traffic delay */
         for ( model.Street street : this.line.getStreets() ) {
-            if ( (street.start().getX() == start.getX() && street.start().getY() == start.getY() && street.end().getX() == end.getX() && street.end().getY() == end.getY()) ||
-                 (street.start().getX() == end.getX() && street.start().getY() == end.getY() && street.end().getX() == start.getX() && street.end().getY() == start.getY())
+            if ( (street.getStart().getX() == start.getX() && street.getStart().getY() == start.getY() && street.getEnd().getX() == end.getX() && street.getEnd().getY() == end.getY()) ||
+                 (street.getStart().getX() == end.getX() && street.getStart().getY() == end.getY() && street.getEnd().getX() == start.getX() && street.getEnd().getY() == start.getY())
             ) {
                 distance += street.getTraffic();
             }

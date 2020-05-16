@@ -7,6 +7,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.*;
 
+/**
+ * Main class used to start application
+ *
+ * @author Andrej Pavlovič <xpavlo14@stud.fit.vutbr.cz>
+ * @author Daša Nosková <xnosko05@stud.fit.vutbr.cz>
+ */
 public class Main extends Application {
 
     @Override
