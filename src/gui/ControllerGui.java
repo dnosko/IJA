@@ -1,3 +1,8 @@
+/*
+TODO
+    ked sa klikne na mapu -> NullPointerException
+    scroll na mape s koleckom iba odzoomuje??
+ */
 
 package gui;
 
@@ -31,20 +36,17 @@ public class ControllerGui {
     @FXML
     private Pane canvas;
 
-    private List<Vehicle> busElements = new ArrayList<>();
-
-    private List<StreetGui> streetElements = new ArrayList<>();
+    private final List<BusGui> busElements = new ArrayList<>();
 
     private int longestPathLength = 0;
 
     private DataHolder holder;
 
-    public Street selectedStreet = null;
-    public StreetGui selStreet;
+    private Street selectedStreet = null;
 
     private Timer timer;
     private LocalTime time = LocalTime.now();
-    private static int zoominXth = 0;
+    private static int zoomInXth = 0;
 
     @FXML
     /* sets time */
@@ -56,7 +58,6 @@ public class ControllerGui {
             setTime.clear();
             setTime.replaceSelection("Invalid time");
         }
-
         showTime();
         this.resetBuses();
     }
@@ -111,9 +112,6 @@ public class ControllerGui {
         street.getGUI().get(0).addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
     }
 
-
-
-
     @FXML
     public void showTime(){
         clock.clear();
@@ -123,7 +121,6 @@ public class ControllerGui {
     @FXML
     private void onZoom(ScrollEvent event) {
         event.consume();
-        System.out.println("testscroll");
         double zoom = event.getDeltaY() > 0 ? 1.1 : 0.9;
         content.setScaleX(zoom * content.getScaleX());
         content.setScaleY(zoom * content.getScaleY());
@@ -137,19 +134,19 @@ public class ControllerGui {
         if ( event.getEventType() == KeyEvent.KEY_PRESSED) {
             KeyCode code = event.getCode();
            if (code == KeyCode.ADD || code == KeyCode.UP) {
-               zoominXth++;
+               zoomInXth++;
                content.setScaleX(1.1 * content.getScaleX());
                content.setScaleY(1.1 * content.getScaleY());
            }
            else if (code == KeyCode.SUBTRACT || code == KeyCode.DOWN) {
-               zoominXth--;
+               zoomInXth--;
                content.setScaleX(0.9 * content.getScaleX());
                content.setScaleY(0.9 * content.getScaleY());
            }
            // move the object
-           if (zoominXth > 0) {
-               content.setTranslateX(100*zoominXth);
-               content.setTranslateY(100*zoominXth);
+           if (zoomInXth > 0) {
+               content.setTranslateX(100* zoomInXth);
+               content.setTranslateY(100* zoomInXth);
             }
            else {
                content.setTranslateX(0);
@@ -159,9 +156,9 @@ public class ControllerGui {
         }
     }
 
-    private void setVehicleElements(List<Vehicle> elements){
-        for (Vehicle vehicle : elements) {
-            content.getChildren().addAll(vehicle.getGUI());
+    private void setVehicleElements(List<BusGui> elements){
+        for (BusGui busGui : elements) {
+            content.getChildren().addAll(busGui.getGUI());
         }
     }
 
@@ -170,15 +167,14 @@ public class ControllerGui {
 
         /* create street elements */
         for (Street street : holder.getStreets()) {
-            StreetGui streetGui = new StreetGui(street.getId(),street.start(),street.end(), street);
+            StreetGui streetGui = new StreetGui(street.start(), street.end(), street);
             setSelectedStreet(streetGui);
             elements.add(streetGui);
-            this.streetElements.add(streetGui);
         }
 
         /* create stop elements */
         for (Stop stop : holder.getStops()) {
-            elements.add(new StopGui(stop.getId(),stop.getCoordinate()));
+            elements.add(new StopGui(stop.getId(), stop.getCoordinate()));
         }
 
         this.setBaseElements(elements);
@@ -193,14 +189,16 @@ public class ControllerGui {
     private void unsetSelectedStreet() {
         try {
             if ( this.selectedStreet.getTraffic() == 0 ) {
-                selectedStreet.streetGui.getGUI().get(0).setStroke(Color.SILVER);
+                selectedStreet.getStreetGui().getGUI().get(0).setStroke(Color.SILVER);
             }
             else {
-                selectedStreet.streetGui.getGUI().get(0).setStroke(Color.RED);
+                selectedStreet.getStreetGui().getGUI().get(0).setStroke(Color.RED);
             }
             selectedStreet = null;
         }
-        catch (NullPointerException e) {}
+        catch (NullPointerException e) {
+            System.out.println("NullPointerException");
+        }
     }
 
     
@@ -210,7 +208,6 @@ public class ControllerGui {
             removeLines();
             unsetSelectedStreet();
         }
-
     }
 
     public void removeLines() {
@@ -232,9 +229,9 @@ public class ControllerGui {
             public void run() {
                 Platform.runLater(() -> {
                     time = time.plusSeconds(1);
-                    for (Vehicle vehicle : busElements) {
-                        vehicle.update(time);
-                        showItinerary(vehicle);
+                    for (BusGui busGui : busElements) {
+                        busGui.update();
+                        showItinerary(busGui);
                     }
                     showTime();
                     activateBuses();
@@ -252,12 +249,12 @@ public class ControllerGui {
 
     private void activateBuses() {
 
-        List<Vehicle> elements = new ArrayList<>();
+        List<BusGui> elements = new ArrayList<>();
 
         for (model.Line line : this.holder.getLines()) {
             if ( line.getBusesTimes().contains(time.get(ChronoField.MINUTE_OF_DAY)) && time.get(ChronoField.SECOND_OF_MINUTE) == 1 ) {
                 /* bus is starting right now */
-                elements.add(new Vehicle(line, 1, new Path(createPathCoords(line), line),time.toSecondOfDay()));
+                elements.add(new BusGui(line, 1, new Path(createPathCoords(line), line),time.toSecondOfDay()));
             }
         }
 
@@ -293,17 +290,17 @@ public class ControllerGui {
     }
 
     private void deactivateBuses() {
-        List<Vehicle> vehiclesToRemove = new ArrayList<>();
+        List<BusGui> vehiclesToRemove = new ArrayList<>();
 
-        for ( Vehicle vehicle : this.busElements ) {
-            if (vehicle.getDistance() > vehicle.getPath().getPathSize()) {
+        for ( BusGui busGui : this.busElements ) {
+            if (busGui.getDistance() > busGui.getPath().getPathSize()) {
                 /* bus finished */
-                for (int i = 0; i < vehicle.getGUI().size()-1;i++) {
-                    if (vehicle.getGUI().get(i+1).getTypeSelector().equals("Line"))
-                        vehicle.getGUI().get(i+1).setStroke(Color.TRANSPARENT);
+                for (int i = 0; i < busGui.getGUI().size()-1; i++) {
+                    if (busGui.getGUI().get(i+1).getTypeSelector().equals("Line"))
+                        busGui.getGUI().get(i+1).setStroke(Color.TRANSPARENT);
                 }
-                vehiclesToRemove.add(vehicle);
-                content.getChildren().remove(vehicle.getGUI().get(0));
+                vehiclesToRemove.add(busGui);
+                content.getChildren().remove(busGui.getGUI().get(0));
             }
         }
 
@@ -313,7 +310,7 @@ public class ControllerGui {
     public void activateActiveBuses (int offset) {
 
         final int SECOND_BEFORE_MIDNIGHT = 86399;
-        List<Vehicle> elements = new ArrayList<>();
+        List<BusGui> elements = new ArrayList<>();
 
         for ( model.Line line : this.holder.getLines() ) {
             for ( int busTime : line.getBusesTimes() ) {
@@ -321,15 +318,15 @@ public class ControllerGui {
                     /* bus is active on road right now */
 
                     // create new bus and initialize his position as his starting position
-                    Vehicle vehicle = new Vehicle(line, 1, new Path(createPathCoords(line), line), time.toSecondOfDay());
-                    elements.add(vehicle);
+                    BusGui busGui = new BusGui(line, 1, new Path(createPathCoords(line), line), time.toSecondOfDay());
+                    elements.add(busGui);
 
                     for ( int i = busTime * 60 ; i <= (offset == 0 ? this.time.toSecondOfDay() : SECOND_BEFORE_MIDNIGHT + offset); i++ ) {
                         /* catch up bus position from his starting position to actual time position */
-                        vehicle.update(time);
+                        busGui.update();
                     }
 
-                    vehicle.updateDeparture();
+                    busGui.updateDeparture();
                 }
             }
         }
@@ -338,19 +335,13 @@ public class ControllerGui {
         this.setVehicleElements(elements);
     }
 
-    private void deactivateAllBuses() {
-        for ( Vehicle vehicle : this.busElements ) {
-            content.getChildren().remove(vehicle.getGUI().get(0));
-        }
-        this.busElements.clear();
-    }
-
     public void setHolder(DataHolder holder) {
         this.holder = holder;
     }
 
-    private void showItinerary(Vehicle vehicle) {
-        Itinerary it = vehicle.getItinerary();
+    private void showItinerary(BusGui busGui) {
+        Itinerary it = busGui.getItinerary();
+
         //Creating the mouse event handler
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
@@ -360,8 +351,8 @@ public class ControllerGui {
                     canvas =  it.createItinerary(canvas);
                     canvas.setVisible(true);
 
-                    for (int i = 0; i < (vehicle.getPath().getGUI().size()); i++) {
-                        vehicle.getGUI().get(i).setStroke(vehicle.getLine().getColor());
+                    for (int i = 0; i < (busGui.getPath().getGUI().size()); i++) {
+                        busGui.getGUI().get(i).setStroke(busGui.getLine().getColor());
                     }
                 }
                 catch (IndexOutOfBoundsException exception) {
@@ -370,11 +361,18 @@ public class ControllerGui {
             }
         };
         //Adding event Filter
-        vehicle.getGUI().get(0).addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
+        busGui.getGUI().get(0).addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
     }
 
-    private void resetBuses() {
-        this.deactivateAllBuses();
+    public void resetBuses() {
+
+        /* deactivate all buses */
+        for ( BusGui busGui : this.busElements ) {
+            content.getChildren().remove(busGui.getGUI().get(0));
+        }
+        this.busElements.clear();
+
+        /* activate all buses */
         this.activateActiveBuses(0);
 
         /* Activate buses before midnight if time was set close after midnight and not all buses starting before midnight already finished */

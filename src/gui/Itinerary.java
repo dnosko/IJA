@@ -10,7 +10,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import model.Coordinate;
 import model.Stop;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,25 +17,26 @@ import java.util.List;
 public class Itinerary {
     private final double X = 20;
     private final double Y = 60;
-    private Text name;
-    private int no_stops;
-    private List<Stop> liststop;
-    private Color color;
-    private double distance, actual_position, drivenDistanceFromOneStopToAnother;
-    private Circle actual_pos;
-    private List<Double> distanceBetweenStops = new ArrayList<>();
-    private List<Double> timesinsec = new ArrayList<>();
-    private model.Line line;
+    private final Text name;
+    private final int no_stops;
+    private final List<Stop> listStop;
+    private final Color color;
+    private final double distance;
+    private double actual_position;
+    private double drivenDistanceFromOneStopToAnother;
+    private final List<Double> distanceBetweenStops = new ArrayList<>();
+    private final List<Double> timesInSec = new ArrayList<>();
+    private final model.Line line;
 
-    public Itinerary(Vehicle vehicle){
-        this.name = this.createText(50,30,vehicle.getLine().getId(),15);
-        this.line = vehicle.getLine();
+    public Itinerary(BusGui busGui){
+        this.name = this.createText(50,30, busGui.getLine().getId(),15);
+        this.line = busGui.getLine();
 
-        this.liststop = vehicle.getLine().getStops();
-        this.no_stops = vehicle.getLine().getStops().size();
-        this.timesinsec.add((double)vehicle.getDeparture());
+        this.listStop = busGui.getLine().getStops();
+        this.no_stops = busGui.getLine().getStops().size();
+        this.timesInSec.add((double) busGui.getDeparture());
 
-        this.color = vehicle.getLine().getColor();
+        this.color = busGui.getLine().getColor();
         this.distance = (no_stops-1)*20;
         this.actual_position =  Y;
     }
@@ -56,8 +56,8 @@ public class Itinerary {
         return text;
     }
 
-    private Circle createCircle(double X, double Y, double radius, Color fill) {
-        Circle circle = new Circle(X,Y,radius);
+    private Circle createCircle(double Y, double radius, Color fill) {
+        Circle circle = new Circle(X, Y, radius);
         circle.setStroke(this.color);
         circle.setFill(fill);
         return circle;
@@ -67,13 +67,13 @@ public class Itinerary {
         it.setVisible(false);
         it.getChildren().addAll(name,this.createLine());
         for (int i =0; i < no_stops; i++) {
-            Circle stop = createCircle(X,Y+i*20,2.5, this.color);
-            Text stop_name = createText(X+20,Y+i*20,liststop.get(i).getId(),11);
-            Text stop_time = createText(X+70, Y+i*20,this.convertSecondstoHH_MM(timesinsec.get(i)),11);
+            Circle stop = createCircle(Y+i*20,2.5, this.color);
+            Text stop_name = createText(X+20,Y+i*20, listStop.get(i).getId(),11);
+            Text stop_time = createText(X+70, Y+i*20,this.convertSecondsToHH_MM(timesInSec.get(i)),11);
             it.getChildren().addAll(stop_name,stop_time,stop);
         }
-        actual_pos = createCircle(X,this.actual_position,2.8,Color.WHITE);
-        it.getChildren().add(actual_pos);
+
+        it.getChildren().add(createCircle(this.actual_position,2.8,Color.WHITE));
 
         it.setOpacity(100);
 
@@ -86,7 +86,7 @@ public class Itinerary {
         this.actual_position = Y + (20*(nthStop)) + ((drivenDistanceFromOneStopToAnother / distanceBetweenStops.get(nthStop)) * 20);
     }
 
-    private String convertSecondstoHH_MM(double seconds){
+    private String convertSecondsToHH_MM(double seconds){
        int hour = (int)seconds/3600;
        double minute = ((seconds/3600.00) - hour)* 60;
        if (minute < 10)
@@ -97,9 +97,9 @@ public class Itinerary {
 
     private void getStopTime(){
         double size;
-        for (int i = 0; i < liststop.size()-1;i++) {
-                Coordinate a = liststop.get(i).getCoordinate();
-                Coordinate b = liststop.get(i+1).getCoordinate();
+        for (int i = 0; i < listStop.size()-1; i++) {
+                Coordinate a = listStop.get(i).getCoordinate();
+                Coordinate b = listStop.get(i+1).getCoordinate();
                 Path stops = new Path(Arrays.asList(a,b), this.line);
 
                 if (a.getX() == b.getX() || a.getY() == b.getY()) // points lie on the same line
@@ -110,7 +110,7 @@ public class Itinerary {
                     size += stops.getDistanceBetweenPoints(c,b);
                 }
 
-                this.timesinsec.add(this.timesinsec.get(i) + size);
+                this.timesInSec.add(this.timesInSec.get(i) + size);
                 distanceBetweenStops.add(size);
         }
     }
@@ -133,7 +133,7 @@ public class Itinerary {
 
 
     public void updateDeparture(double time) {
-        this.timesinsec.set(0,time);
+        this.timesInSec.set(0,time);
     }
 
 }

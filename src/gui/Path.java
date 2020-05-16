@@ -4,22 +4,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 import model.Coordinate;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Path implements Drawable  {
-    private List<Coordinate> path;
-    private List<Shape> gui = new ArrayList<>();
-    private model.Line line;
+    private final List<Coordinate> path;
+    private final List<Shape> gui = new ArrayList<>();
+    private final model.Line line;
 
     public Path(List<Coordinate> path, model.Line line) {
         this.path = path;
         this.line = line;
-    }
-
-    public Coordinate getPoint(int nth) {
-        return path.get(nth);
     }
 
     public Coordinate getCoordinateDistance(double distance){
@@ -37,7 +32,7 @@ public class Path implements Drawable  {
 
             length += getDistanceBetweenPoints(a,b);
         }
-        if (a == null || b == null)
+        if (a == null)
             return null;
 
         double distance_driven = (distance - length) / currentLength;
@@ -47,9 +42,11 @@ public class Path implements Drawable  {
 
     public double getDistanceBetweenPoints(Coordinate start, Coordinate end){
 
+        /* calculate real distance */
         double distance;
         distance = Math.sqrt(Math.pow(start.getX()-end.getX(),2) + Math.pow(start.getY() - end.getY(),2));
 
+        /* find out which road are represented as those coordinates (if any), then add traffic delay */
         for ( model.Street street : this.line.getStreets() ) {
             if ( (street.start().getX() == start.getX() && street.start().getY() == start.getY() && street.end().getX() == end.getX() && street.end().getY() == end.getY()) ||
                  (street.start().getX() == end.getX() && street.start().getY() == end.getY() && street.end().getX() == start.getX() && street.end().getY() == start.getY())
@@ -58,10 +55,12 @@ public class Path implements Drawable  {
             }
         }
 
+        /* if this coordinates represent first street of line route, they need to get their own handle */
         if ( this.path.get(0).getX() == start.getX() && this.path.get(0).getY() == start.getY() || this.path.get(0).getX() == end.getX() && this.path.get(0).getY() == end.getY() ) {
             distance += this.line.getStreets().get(0).getTraffic();
         }
 
+        /* if this coordinates represent last street of line route, they need to get their own handle */
         if ( this.path.get(this.path.size() - 1).getX() == start.getX() && this.path.get(this.path.size() - 1).getY() == start.getY() || this.path.get(this.path.size() - 1).getX() == end.getX() && this.path.get(this.path.size() - 1).getY() == end.getY() ) {
             distance += this.line.getStreets().get(this.line.getStreets().size() - 1).getTraffic();
         }
@@ -86,9 +85,4 @@ public class Path implements Drawable  {
         }
         return gui;
     }
-
-    public List<Coordinate> getPath() {
-        return this.path;
-    }
-
 }

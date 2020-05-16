@@ -1,7 +1,5 @@
 package gui;
 
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
@@ -12,8 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class StopGui implements Drawable{
-    private String name;
-    private Coordinate position;
+    private final String name;
+    private final Coordinate position;
 
     public StopGui(String name, Coordinate position) {
         this.name = name;

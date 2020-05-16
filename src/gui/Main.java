@@ -24,7 +24,7 @@ public class Main extends Application {
         controller.setHolder(holder);
         controller.setMapBase();
         controller.startTime(1);
-        controller.activateActiveBuses(0);
+        controller.resetBuses();
     }
 
     public static void main(String[] args) {

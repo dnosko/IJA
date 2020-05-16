@@ -1,39 +1,22 @@
 package model;
 
 import gui.StreetGui;
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
-
 import java.util.List;
 
 public class Street {
 
-    private String id;
-    private List<Coordinate> coordinates;
-    private List<Stop> stops;
+    private final String id;
+    private final List<Coordinate> coordinates;
     private int traffic = 0;
     public StreetGui streetGui;
 
-    public Street(String id, List<Coordinate> coordinates, List<Stop> stops) {
+    public Street(String id, List<Coordinate> coordinates) {
         this.id = id;
         this.coordinates = coordinates;
-        this.stops = stops; // if no stops than empty list
-
-        for ( Stop stop : stops ) {
-            stop.setStreet(this);
-        }
     }
 
     public String getId () {
         return this.id;
-    }
-
-    public List<Coordinate> getCoordinates () {
-        return this.coordinates;
-    }
-
-    public List<Stop> getStops () {
-        return this.stops;
     }
 
     public Coordinate start () {

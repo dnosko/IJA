@@ -1,41 +1,35 @@
 package gui;
 
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import model.Coordinate;
 import model.Line;
-import model.Stop;
-
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Vehicle implements Drawable, TimeUpdate {
+public class BusGui implements Drawable {
 
     private int distance = 0;
-    private double speed = 1;
+    private final double speed;
     private Coordinate position;
-    private List<Shape> gui;
-    private Path path;
-    private List<Stop> stops;
-    private Color color;
-    private Line line;
-    private Itinerary it;
+    private final List<Shape> gui;
+    private final Path path;
+    private final Line line;
+    private final Itinerary it;
     private int departure;
 
-    public Vehicle(Line line, double speed, Path path, int departure) {
+    public BusGui(Line line, double speed, Path path, int departure) {
         this.departure = departure;
         this.line = line;
-        this.stops = line.getStops();
-        this.position = this.stops.get(0).getCoordinate(); //first position
+        this.position = this.line.getStops().get(0).getCoordinate(); //first position
         this.speed = speed;
         this.path = path;
-        this.color = line.getColor();
-        gui = new ArrayList<>();
-        gui.add(new Circle(this.position.getX(),this.position.getY(),8,color));
 
+        gui = new ArrayList<>();
+        gui.add(new Circle(this.position.getX(),this.position.getY(),8, this.line.getColor()));
         gui.addAll(path.getGUI()); //add path
+
         it = new Itinerary(this);
     }
 
@@ -57,8 +51,7 @@ public class Vehicle implements Drawable, TimeUpdate {
         }
     }
 
-    @Override
-    public void update(LocalTime time) {
+    public void update() {
         distance += speed;
         Coordinate coords = path.getCoordinateDistance(distance);
         move(coords);

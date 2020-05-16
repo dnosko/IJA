@@ -8,9 +8,9 @@ import java.util.Scanner;
 
 public class DataHolder {
 
-    private List<Stop> stops = new ArrayList<>();
-    private List<Street> streets = new ArrayList<>();
-    private List<Line> lines = new ArrayList<>();
+    private final List<Stop> stops = new ArrayList<>();
+    private final List<Street> streets = new ArrayList<>();
+    private final List<Line> lines = new ArrayList<>();
 
     public DataHolder(String folderPath) {
 
@@ -60,20 +60,7 @@ public class DataHolder {
                 coordinates.add(new Coordinate(Double.parseDouble(splitWords[1]), Double.parseDouble(splitWords[2])));
                 coordinates.add(new Coordinate(Double.parseDouble(splitWords[3]), Double.parseDouble(splitWords[4])));
 
-                List<Stop> stops = new ArrayList<>();
-                if ( splitWords.length > 5 ) {
-                    String[] splitStops = splitWords[5].split("-", -1);
-                    for (String stopId : splitStops) {
-                        for (Stop stop : this.stops) {
-                            if (stop.getId().equals(stopId)) {
-                                stops.add(stop);
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                Street street = new Street(splitWords[0], coordinates, stops);
+                Street street = new Street(splitWords[0], coordinates);
                 this.streets.add(street);
             }
 

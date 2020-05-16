@@ -1,25 +1,37 @@
 package model;
 
 import javafx.scene.paint.Color;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Line {
 
-    private String id;
-    private List<Street> streets;
-    private List<Stop> stops;
+    private final String id;
+    private final List<Street> streets;
+    private final List<Stop> stops;
     private Color color;
-    private List<Integer> busesTimes = new ArrayList<>(); // buses start times in minutes (schedule)
-    private int pathLength;
+    private final List<Integer> busesTimes = new ArrayList<>(); // buses start times in minutes (schedule)
+    private final int pathLength;
 
     public Line(String id, List<Stop> stops, List<Street> streets) {
         this.id = id;
         this.stops = stops;
         this.streets = streets;
-        this.setColor();
 
+        /* set color */
+        switch (this.id) {
+            case "line1":
+                this.color = Color.RED;
+                break;
+            case "line2":
+                this.color = Color.BLUE;
+                break;
+            case "line3":
+                this.color = Color.GREEN;
+                break;
+        }
+
+        /* calculate length of path */
         double pathLength = 0;
         for ( Street street : this.streets ) {
             double x1 = street.start().getX();
@@ -55,20 +67,6 @@ public class Line {
 
     public int getPathLength() {
         return this.pathLength;
-    }
-
-    private void setColor() {
-        switch (this.id) {
-            case "line1":
-                this.color = Color.RED;
-                break;
-            case "line2":
-                this.color = Color.BLUE;
-                break;
-            case "line3":
-                this.color = Color.GREEN;
-                break;
-        }
     }
 
     public Color getColor() {
