@@ -8,7 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -35,15 +34,10 @@ public class ControllerGui {
     private TextArea clock;
     @FXML
     private Pane canvas;
-
     private final List<BusGui> busElements = new ArrayList<>();
-
     private int longestPathLength = 0;
-
     private DataHolder holder;
-
     private Street selectedStreet = null;
-
     private Timer timer;
     private LocalTime time = LocalTime.now();
     private static int zoomInXth = 0;
@@ -347,7 +341,7 @@ public class ControllerGui {
      *
      * Will activate all buses already on road, that means local time is somewhere between their start and end time
      *
-     * @param offset
+     * @param offset if offset is equal to zero, method is activating buses from range midnight to actual time, if greater than zero, method is activating buses from range (midnight - offset) to midnight
      */
     public void activateActiveBuses (int offset) {
 

@@ -15,6 +15,12 @@ import model.*;
  */
 public class Main extends Application {
 
+    /**
+     * Override, create and set basic needed objects
+     *
+     * @param primaryStage Primary stage
+     * @throws Exception Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
@@ -33,6 +39,11 @@ public class Main extends Application {
         controller.resetBuses();
     }
 
+    /**
+     * Main method
+     *
+     * @param args Program arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }

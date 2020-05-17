@@ -40,5 +40,4 @@ public class StopGui implements Drawable{
                 new Text(this.position.getX(),this.position.getY() - 7,this.name)
         );
     }
-
 }
