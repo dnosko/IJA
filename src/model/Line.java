@@ -31,6 +31,11 @@ public class Line {
         this.stops = stops;
         this.streets = streets;
 
+        // adds this line to every street it's driving through
+        for (Street str: streets) {
+            str.addLine(this);
+        }
+
         /* set color */
         if (this.id.equals("line1")) {
             this.color = Color.RED;

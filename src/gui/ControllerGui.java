@@ -1,7 +1,8 @@
+/* TODO ked sa vybera viac ulic na oznacenie tak sa strati pointer, a odznaci sa iba jedna*/
+
 package gui;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -210,13 +211,16 @@ public class ControllerGui {
      */
     private void unsetSelectedStreet() {
         try {
-            if ( this.selectedStreet.getTraffic() == 0 ) {
+            if ( this.selectedStreet.getTraffic() == 0) {
                 selectedStreet.getStreetGui().getGUI().get(0).setStroke(Color.SILVER);
+                for (Street str: DetourStreets) {
+                    str.getStreetGui().getGUI().get(0).setStroke(Color.SILVER);
+                }
             }
             else {
                 selectedStreet.getStreetGui().getGUI().get(0).setStroke(Color.RED);
             }
-            selectedStreet = null;
+            //selectedStreet = null;
         }
         catch (NullPointerException e) {
             //no street to unselect
@@ -465,5 +469,13 @@ public class ControllerGui {
         catch (IllegalArgumentException e) {
             TextFieldDelay.replaceSelection("Must be a positive integer number.");
         }
+    }
+
+    /**
+     * Ends setting detour.
+     */
+    @FXML
+    public void onDetourSet() {
+        this.closingStreet = false;
     }
 }

@@ -1,6 +1,8 @@
 package model;
 
 import gui.StreetGui;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +19,7 @@ public class Street {
     private int traffic = 0;
     public StreetGui streetGui;
     private boolean closed =  false;
+    private List<Line> lineList = new ArrayList<>();
 
     /**
      * Constructor
@@ -97,4 +100,12 @@ public class Street {
      * Marks street as closed.
      */
     public void setClosed() { this.closed = false; }
+
+    /**
+     * Method adds line going through the street.
+     * @param line line going through the street
+     */
+    public void addLine(Line line) {
+        lineList.add(line);
+    }
 }
