@@ -8,6 +8,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -42,6 +43,8 @@ public class ControllerGui {
     private Timer timer;
     private LocalTime time = LocalTime.now();
     private static int zoomInXth = 0;
+    private List<Street> DetourStreets = new ArrayList<>();
+    private boolean closingStreet = false;
 
     /**
      * Method sets time to time entered by user.
@@ -104,19 +107,28 @@ public class ControllerGui {
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                try {
-                    removeLines();
-                    selectedStreet = street.getStreet();
-                    street.getGUI().get(0).setStroke(Color.GOLD);
+                if (e.getButton().equals(MouseButton.PRIMARY)) {
+                    try {
+                        removeLines();
+                        selectedStreet = street.getStreet();
+                        street.getGUI().get(0).setStroke(Color.GOLD);
+                    } catch (IndexOutOfBoundsException exception) {
+                        System.out.println("INDEX OUT OF BOUNDS");
+                    }
                 }
-                catch (IndexOutOfBoundsException exception) {
-                    System.out.println("INDEX OUT OF BOUNDS");
+                else if (e.getButton().equals(MouseButton.SECONDARY)) { // setting detour
+                    if (closingStreet) {
+                        removeLines();
+                        DetourStreets.add(street.getStreet());
+                        street.getGUI().get(0).setStroke(Color.MAGENTA);
+                    }
                 }
             }
         };
         //Adding event Filter
         street.getGUI().get(0).addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
     }
+
 
     /**
      * Method shows time.
@@ -443,9 +455,10 @@ public class ControllerGui {
                 TextFieldDelay.replaceSelection("Street not selected.");
             }
             else {
-                this.selectedStreet.setClosed();
+                this.closingStreet = true;
+                this.selectedStreet.setClosed(); // nvm ci treba
                 this.selectedStreet.getStreetGui().getGUI().get(0).setStroke(Color.BLACK);
-                
+
                 //this.resetBuses();
             }
         }
