@@ -451,24 +451,10 @@ public class ControllerGui {
      * Sets delay of line when a street is closed.
      */
     @FXML
-    public void onDelaySet() {
-        try {
-            int delay = Integer.parseInt(TextFieldDelay.getText());
-
-            if ( this.selectedStreet == null ) {
-                TextFieldDelay.replaceSelection("Street not selected.");
-            }
-            else {
-                this.closingStreet = true;
-                this.selectedStreet.setClosed(); // nvm ci treba
-                this.selectedStreet.getStreetGui().getGUI().get(0).setStroke(Color.BLACK);
-
-                //this.resetBuses();
-            }
-        }
-        catch (IllegalArgumentException e) {
-            TextFieldDelay.replaceSelection("Must be a positive integer number.");
-        }
+    public void oncloseStreet() {
+        this.closingStreet = true;
+        this.selectedStreet.setClosed(); // nvm ci treba
+        this.selectedStreet.getStreetGui().getGUI().get(0).setStroke(Color.BLACK);
     }
 
     /**
