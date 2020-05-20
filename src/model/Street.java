@@ -16,6 +16,7 @@ public class Street {
     private final Coordinate end;
     private int traffic = 0;
     public StreetGui streetGui;
+    private boolean closed =  false;
 
     /**
      * Constructor
@@ -91,4 +92,9 @@ public class Street {
     public StreetGui getStreetGui() {
         return this.streetGui;
     }
+
+    /**
+     * Marks street as closed.
+     */
+    public void setClosed() { this.closed = false; }
 }

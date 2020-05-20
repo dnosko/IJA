@@ -1,6 +1,7 @@
 package gui;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -29,7 +30,7 @@ public class ControllerGui {
     @FXML
     public AnchorPane content;
     @FXML
-    private TextField setTime, changeTimeSpeed, TextFieldTraffic;
+    private TextField setTime, changeTimeSpeed, TextFieldTraffic, TextFieldDelay;
     @FXML
     private TextArea clock;
     @FXML
@@ -428,5 +429,28 @@ public class ControllerGui {
      */
     public void setHolder(DataHolder holder) {
         this.holder = holder;
+    }
+
+    /**
+     * Sets delay of line when a street is closed.
+     */
+    @FXML
+    public void onDelaySet() {
+        try {
+            int delay = Integer.parseInt(TextFieldDelay.getText());
+
+            if ( this.selectedStreet == null ) {
+                TextFieldDelay.replaceSelection("Street not selected.");
+            }
+            else {
+                this.selectedStreet.setClosed();
+                this.selectedStreet.getStreetGui().getGUI().get(0).setStroke(Color.BLACK);
+                
+                //this.resetBuses();
+            }
+        }
+        catch (IllegalArgumentException e) {
+            TextFieldDelay.replaceSelection("Must be a positive integer number.");
+        }
     }
 }
