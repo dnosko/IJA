@@ -4,5 +4,5 @@
 
 ### Authors:
 
-Andrej Pavlovič xpavlo14@stud.fit.vutbr.cz
+Andrej Pavlovič xpavlo14@stud.fit.vutbr.cz \
 Daša Nosková - dasa.noskova@gmail.com
